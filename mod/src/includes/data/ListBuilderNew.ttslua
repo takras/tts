@@ -31,7 +31,7 @@ function _loadScripts()
       destroyObject(token)
     end
   })
-  getObjectFromGUID("094230").takeObject({
+  getObjectFromGUID("c06016").takeObject({
     callback_function = function(poi)
       _scriptPOIToken = poi.getLuaScript()
       destroyObject(poi)
@@ -558,6 +558,7 @@ function _loadArmyFromJson(data)
   if data.armyFaction == "" then
     data.armyFaction = "mercenary"
   end
+  __state.faction = data.armyFaction
   _setSelectedScenario(data.battlefieldDeck.scenario)
   local spawn = initListSpawner({
     deck        = _deck,

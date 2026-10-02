@@ -16,12 +16,18 @@
     "Nickname": "Black Attack Dice Blue",
     "Description": "",
     "GMNotes": "",
+    "AltLookAngle": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
     "ColorDiffuse": {
-      "r": 0.115994476,
-      "g": 0.133585691,
-      "b": 0.136516571
+      "r": 0.115993716,
+      "g": 0.133584976,
+      "b": 0.136515856
     },
     "LayoutGroupSortIndex": 0,
+    "Value": 0,
     "Locked": true,
     "Grid": true,
     "Snap": true,

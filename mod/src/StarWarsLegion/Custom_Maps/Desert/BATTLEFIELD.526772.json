@@ -16,12 +16,18 @@
     "Nickname": "BATTLEFIELD",
     "Description": "",
     "GMNotes": "",
+    "AltLookAngle": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
     "ColorDiffuse": {
       "r": 0.932913363,
       "g": 0.932913363,
       "b": 0.932913363
     },
     "LayoutGroupSortIndex": 0,
+    "Value": 0,
     "Locked": true,
     "Grid": true,
     "Snap": true,

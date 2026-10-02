@@ -16,12 +16,18 @@
     "Nickname": "Model Template A",
     "Description": "",
     "GMNotes": "",
+    "AltLookAngle": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
     "ColorDiffuse": {
-      "r": 0.09987608,
-      "g": 0.09987608,
-      "b": 0.09987608
+      "r": 0.09987537,
+      "g": 0.09987537,
+      "b": 0.09987537
     },
     "LayoutGroupSortIndex": 0,
+    "Value": 0,
     "Locked": true,
     "Grid": true,
     "Snap": true,
@@ -64,8 +70,7 @@
           "x": -0.0000015065059,
           "y": 179.997131,
           "z": -9.29336e-7
-        },
-        "Tags": []
+        }
       }
     ]
   },

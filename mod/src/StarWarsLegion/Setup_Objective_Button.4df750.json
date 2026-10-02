@@ -8,7 +8,7 @@
       "posZ": -22.5413971,
       "rotX": -0.00233041984,
       "rotY": 179.98468,
-      "rotZ": 0.00363908731,
+      "rotZ": 0.00363909733,
       "scaleX": 0.22,
       "scaleY": 0.250000417,
       "scaleZ": 0.22
@@ -16,12 +16,18 @@
     "Nickname": "Setup Objective Button",
     "Description": "",
     "GMNotes": "",
+    "AltLookAngle": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
     "ColorDiffuse": {
       "r": 0,
       "g": 0.913,
       "b": 1
     },
     "LayoutGroupSortIndex": 0,
+    "Value": 0,
     "Locked": true,
     "Grid": true,
     "Snap": true,

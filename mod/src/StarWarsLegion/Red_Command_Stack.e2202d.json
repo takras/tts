@@ -16,12 +16,18 @@
     "Nickname": "Red Command Stack",
     "Description": "",
     "GMNotes": "",
+    "AltLookAngle": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
     "ColorDiffuse": {
-      "r": 0.254899353,
-      "g": 0.345095456,
+      "r": 0.2548986,
+      "g": 0.345094681,
       "b": 0.4470588
     },
     "LayoutGroupSortIndex": 0,
+    "Value": 0,
     "Locked": true,
     "Grid": true,
     "Snap": true,

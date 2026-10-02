@@ -1,0 +1,60 @@
+{
+  "Object": {
+    "GUID": "e032e6",
+    "Name": "Custom_Token",
+    "Transform": {
+      "posX": -43.7443161,
+      "posY": 0.97360003,
+      "posZ": 0.727318764,
+      "rotX": 0.00000197337317,
+      "rotY": 180.005173,
+      "rotZ": -0.00000138885775,
+      "scaleX": 0.250000417,
+      "scaleY": 1,
+      "scaleZ": 0.250000417
+    },
+    "Nickname": "Wound7",
+    "Description": "",
+    "GMNotes": "",
+    "AltLookAngle": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "ColorDiffuse": {
+      "r": 1,
+      "g": 1,
+      "b": 1
+    },
+    "LayoutGroupSortIndex": 0,
+    "Value": 0,
+    "Locked": false,
+    "Grid": true,
+    "Snap": true,
+    "IgnoreFoW": false,
+    "MeasureMovement": false,
+    "DragSelectable": true,
+    "Autoraise": true,
+    "Sticky": true,
+    "Tooltip": true,
+    "GridProjection": false,
+    "HideWhenFaceDown": false,
+    "Hands": false,
+    "CustomImage": {
+      "ImageURL": "https://steamusercontent-a.akamaihd.net/ugc/12409979280031310243/86506E7B65FBAED8414A0F9B86A7917FF3A7C2D0/",
+      "ImageSecondaryURL": "",
+      "ImageScalar": 1,
+      "WidthScale": 0,
+      "CustomToken": {
+        "Thickness": 0.1,
+        "MergeDistancePixels": 15,
+        "StandUp": false,
+        "Stackable": false
+      }
+    },
+    "LuaScript": "",
+    "LuaScriptState": "",
+    "XmlUI": ""
+  },
+  "StatesPaths": {}
+}

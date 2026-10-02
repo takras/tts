@@ -6,7 +6,7 @@
       "posX": 58.17631,
       "posY": 1.06647265,
       "posZ": -0.951033056,
-      "rotX": -0.0015930651,
+      "rotX": -0.00159306789,
       "rotY": 359.985962,
       "rotZ": -0.0000114085315,
       "scaleX": 0.250000417,
@@ -16,12 +16,18 @@
     "Nickname": "Bomb Cart Script",
     "Description": "",
     "GMNotes": "",
+    "AltLookAngle": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
     "ColorDiffuse": {
-      "r": 0.113668017,
-      "g": 0.160729825,
-      "b": 0.0979881957
+      "r": 0.11366763,
+      "g": 0.160729468,
+      "b": 0.09798787
     },
     "LayoutGroupSortIndex": 0,
+    "Value": 0,
     "Locked": true,
     "Grid": true,
     "Snap": true,

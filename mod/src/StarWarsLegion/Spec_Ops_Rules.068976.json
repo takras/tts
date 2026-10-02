@@ -1,0 +1,54 @@
+{
+  "Object": {
+    "GUID": "068976",
+    "Name": "Custom_PDF",
+    "Transform": {
+      "posX": 54.38,
+      "posY": 0.9490368,
+      "posZ": -26.23,
+      "rotX": 3.18533284e-06,
+      "rotY": 270.005768,
+      "rotZ": 3.52762663e-06,
+      "scaleX": 1.99723673,
+      "scaleY": 1,
+      "scaleZ": 1.99723673
+    },
+    "Nickname": "Errata Reference (VO)",
+    "Description": "",
+    "GMNotes": "isq-lectern-2",
+    "AltLookAngle": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "ColorDiffuse": {
+      "r": 0.6500202,
+      "g": 0.6500202,
+      "b": 0.6500202
+    },
+    "LayoutGroupSortIndex": 0,
+    "Value": 0,
+    "Locked": true,
+    "Grid": true,
+    "Snap": true,
+    "IgnoreFoW": false,
+    "MeasureMovement": false,
+    "DragSelectable": true,
+    "Autoraise": true,
+    "Sticky": true,
+    "Tooltip": true,
+    "GridProjection": false,
+    "HideWhenFaceDown": false,
+    "Hands": false,
+    "CustomPDF": {
+      "PDFUrl": "https://drive.usercontent.google.com/download?id=1iVSWN3RCYhWjxzQVvSuIFe7gXy6Rt8VI&export=download",
+      "PDFPassword": "",
+      "PDFPage": 0,
+      "PDFPageOffset": 0
+    },
+    "LuaScript": "#include ./Custom_PDF.068976.lua",
+    "LuaScriptState": "",
+    "XmlUI": ""
+  },
+  "StatesPaths": {}
+}

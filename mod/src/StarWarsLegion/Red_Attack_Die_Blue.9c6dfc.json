@@ -8,7 +8,7 @@
       "posZ": 12.1106138,
       "rotX": 18.6063,
       "rotY": 0.0383953936,
-      "rotZ": 0.02080471,
+      "rotZ": 0.0208048057,
       "scaleX": 0.22,
       "scaleY": 0.250000417,
       "scaleZ": 0.22
@@ -16,12 +16,18 @@
     "Nickname": "Red Attack Die Blue",
     "Description": "",
     "GMNotes": "",
+    "AltLookAngle": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
     "ColorDiffuse": {
       "r": 1,
       "g": 0,
       "b": 0
     },
     "LayoutGroupSortIndex": 0,
+    "Value": 0,
     "Locked": true,
     "Grid": true,
     "Snap": true,

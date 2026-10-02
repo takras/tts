@@ -1,9 +1,10 @@
 {
   "Save": {
     "SaveName": "StarWarsLegion",
+    "EpochTime": 1790849059,
+    "Date": "10/1/2026 12:04:19 PM",
+    "VersionNumber": "v14.2.2",
     "GameMode": "Star Wars: Legion",
-    "Date": "4/6/2021 11:06:48 AM",
-    "VersionNumber": "v13.0.5",
     "GameType": "",
     "GameComplexity": "",
     "Tags": [],
@@ -12,75 +13,6 @@
     "Table": "Table_None",
     "Sky": "Sky_Museum",
     "Note": "",
-    "Rules": "",
-    "Grid": {
-      "Type": 0,
-      "Lines": false,
-      "Color": {
-        "r": 0,
-        "g": 0,
-        "b": 0
-      },
-      "Opacity": 0.75,
-      "ThickLines": false,
-      "Snapping": false,
-      "Offset": false,
-      "BothSnapping": false,
-      "xSize": 6,
-      "ySize": 6,
-      "PosOffset": {
-        "x": 2,
-        "y": 1,
-        "z": 0
-      }
-    },
-    "Lighting": {
-      "LightIntensity": 0.5139988,
-      "LightColor": {
-        "r": 1,
-        "g": 0.9804,
-        "b": 0.8902
-      },
-      "AmbientIntensity": 2,
-      "AmbientType": 1,
-      "AmbientSkyColor": {
-        "r": 0.686,
-        "g": 0.636,
-        "b": 0.519
-      },
-      "AmbientEquatorColor": {
-        "r": 0.043,
-        "g": 0.023,
-        "b": 0.01
-      },
-      "AmbientGroundColor": {
-        "r": 0.018,
-        "g": 0.011,
-        "b": 0.006
-      },
-      "ReflectionIntensity": 1,
-      "LutIndex": 0,
-      "LutContribution": 1,
-      "LutURL": ""
-    },
-    "Hands": {
-      "Enable": true,
-      "DisableUnused": false,
-      "Hiding": 0
-    },
-    "ComponentTags": {
-      "labels": []
-    },
-    "Turns": {
-      "Enable": false,
-      "Type": 0,
-      "TurnOrder": [],
-      "Reverse": false,
-      "SkipEmpty": false,
-      "DisableInteractions": false,
-      "PassTurns": true,
-      "TurnColor": ""
-    },
     "TabStates": {
       "0": {
         "title": "Rules",
@@ -215,6 +147,83 @@
         "id": 11
       }
     },
+    "Grid": {
+      "Type": 0,
+      "Lines": false,
+      "Color": {
+        "r": 0,
+        "g": 0,
+        "b": 0
+      },
+      "Opacity": 0.75,
+      "ThickLines": false,
+      "Snapping": false,
+      "Offset": false,
+      "BothSnapping": false,
+      "xSize": 6,
+      "ySize": 6,
+      "PosOffset": {
+        "x": 2,
+        "y": 1,
+        "z": 0
+      }
+    },
+    "Lighting": {
+      "LightIntensity": 0.5139988,
+      "LightColor": {
+        "r": 1,
+        "g": 0.9804,
+        "b": 0.8902
+      },
+      "AmbientIntensity": 2,
+      "AmbientType": 1,
+      "AmbientSkyColor": {
+        "r": 0.686,
+        "g": 0.636,
+        "b": 0.519
+      },
+      "AmbientEquatorColor": {
+        "r": 0.043,
+        "g": 0.023,
+        "b": 0.01
+      },
+      "AmbientGroundColor": {
+        "r": 0.018,
+        "g": 0.011,
+        "b": 0.006
+      },
+      "ReflectionIntensity": 1,
+      "LutIndex": 0,
+      "LutContribution": 1,
+      "LutURL": ""
+    },
+    "Hands": {
+      "Enable": true,
+      "DisableUnused": false,
+      "Hiding": 0
+    },
+    "ComponentTags": {
+      "labels": [
+        {
+          "displayed": "Table",
+          "normalized": "table"
+        },
+        {
+          "displayed": "POI",
+          "normalized": "poi"
+        }
+      ]
+    },
+    "Turns": {
+      "Enable": false,
+      "Type": 0,
+      "TurnOrder": [],
+      "Reverse": false,
+      "SkipEmpty": false,
+      "DisableInteractions": false,
+      "PassTurns": true,
+      "TurnColor": ""
+    },
     "CameraStates": [
       {
         "Position": {
@@ -303,24 +312,356 @@
     "XmlUI": "#include ./StarWarsLegion.xml",
     "CustomUIAssets": [
       {
+        "Type": 0,
         "Name": "PalpatinePoster",
         "URL": "https://steamusercontent-a.akamaihd.net/ugc/966480765117276391/DDA8500A1694EF1EAA32998DCAB2D53098FBE040/"
       },
       {
+        "Type": 0,
         "Name": "navyPoster",
         "URL": "https://steamusercontent-a.akamaihd.net/ugc/966480765117276646/EAB073D513A94F6947D9004F4FB98D7D9B22E416/"
       },
       {
+        "Type": 0,
         "Name": "ObiWanPoster",
         "URL": "https://steamusercontent-a.akamaihd.net/ugc/966480765118137024/1AB7F81D20820D74D9B1BFE48F5865D152956296/"
       },
       {
+        "Type": 0,
         "Name": "rangeRuler",
         "URL": "https://steamusercontent-a.akamaihd.net/ugc/966480765118137238/1157F7217EB80F31A92427567B377F857576DAE9/"
+      }
+    ],
+    "SnapPoints": [
+      {
+        "Position": {
+          "x": -22,
+          "y": 1,
+          "z": -6
+        },
+        "Tags": [
+          "POI"
+        ]
       },
       {
-        "Name": "isqLogo",
-        "URL": "https://raw.githubusercontent.com/ironsquadronfr-hub/tts/isq-qol/mod/data/isq-overlay-assets/iron_squadron_logo_v2.png"
+        "Position": {
+          "x": -22,
+          "y": 1,
+          "z": 0
+        },
+        "Tags": [
+          "POI"
+        ]
+      },
+      {
+        "Position": {
+          "x": -22,
+          "y": 1,
+          "z": 6
+        },
+        "Tags": [
+          "POI"
+        ]
+      },
+      {
+        "Position": {
+          "x": -13,
+          "y": 1,
+          "z": -6
+        },
+        "Tags": [
+          "POI"
+        ]
+      },
+      {
+        "Position": {
+          "x": -10,
+          "y": 1,
+          "z": -9
+        },
+        "Tags": [
+          "POI"
+        ]
+      },
+      {
+        "Position": {
+          "x": -10,
+          "y": 1,
+          "z": -6
+        },
+        "Tags": [
+          "POI"
+        ]
+      },
+      {
+        "Position": {
+          "x": -10,
+          "y": 1,
+          "z": 0
+        },
+        "Tags": [
+          "POI"
+        ]
+      },
+      {
+        "Position": {
+          "x": -10,
+          "y": 1,
+          "z": 9
+        },
+        "Tags": [
+          "POI"
+        ]
+      },
+      {
+        "Position": {
+          "x": -10,
+          "y": 1,
+          "z": 12
+        },
+        "Tags": [
+          "POI"
+        ]
+      },
+      {
+        "Position": {
+          "x": -4,
+          "y": 1,
+          "z": -12
+        },
+        "Tags": [
+          "POI"
+        ]
+      },
+      {
+        "Position": {
+          "x": -4,
+          "y": 1,
+          "z": -6
+        },
+        "Tags": [
+          "POI"
+        ]
+      },
+      {
+        "Position": {
+          "x": -4,
+          "y": 1,
+          "z": 6
+        },
+        "Tags": [
+          "POI"
+        ]
+      },
+      {
+        "Position": {
+          "x": -1,
+          "y": 1,
+          "z": 0
+        },
+        "Tags": [
+          "POI"
+        ]
+      },
+      {
+        "Position": {
+          "x": 2,
+          "y": 1,
+          "z": 6
+        },
+        "Tags": [
+          "POI"
+        ]
+      },
+      {
+        "Position": {
+          "x": 8,
+          "y": 1,
+          "z": -12
+        },
+        "Tags": [
+          "POI"
+        ]
+      },
+      {
+        "Position": {
+          "x": 8,
+          "y": 1,
+          "z": -6
+        },
+        "Tags": [
+          "POI"
+        ]
+      },
+      {
+        "Position": {
+          "x": 8,
+          "y": 1,
+          "z": 0
+        },
+        "Tags": [
+          "POI"
+        ]
+      },
+      {
+        "Position": {
+          "x": 8,
+          "y": 1,
+          "z": 6
+        },
+        "Tags": [
+          "POI"
+        ]
+      },
+      {
+        "Position": {
+          "x": 8,
+          "y": 1,
+          "z": 12
+        },
+        "Tags": [
+          "POI"
+        ]
+      },
+      {
+        "Position": {
+          "x": 14,
+          "y": 1,
+          "z": -6
+        },
+        "Tags": [
+          "POI"
+        ]
+      },
+      {
+        "Position": {
+          "x": 17,
+          "y": 1,
+          "z": 0
+        },
+        "Tags": [
+          "POI"
+        ]
+      },
+      {
+        "Position": {
+          "x": 20,
+          "y": 1,
+          "z": -6
+        },
+        "Tags": [
+          "POI"
+        ]
+      },
+      {
+        "Position": {
+          "x": 20,
+          "y": 1,
+          "z": 6
+        },
+        "Tags": [
+          "POI"
+        ]
+      },
+      {
+        "Position": {
+          "x": 20,
+          "y": 1,
+          "z": 12
+        },
+        "Tags": [
+          "POI"
+        ]
+      },
+      {
+        "Position": {
+          "x": 26,
+          "y": 1,
+          "z": -12
+        },
+        "Tags": [
+          "POI"
+        ]
+      },
+      {
+        "Position": {
+          "x": 26,
+          "y": 1,
+          "z": -9
+        },
+        "Tags": [
+          "POI"
+        ]
+      },
+      {
+        "Position": {
+          "x": 26,
+          "y": 1,
+          "z": 0
+        },
+        "Tags": [
+          "POI"
+        ]
+      },
+      {
+        "Position": {
+          "x": 26,
+          "y": 1,
+          "z": 6
+        },
+        "Tags": [
+          "POI"
+        ]
+      },
+      {
+        "Position": {
+          "x": 26,
+          "y": 1,
+          "z": 9
+        },
+        "Tags": [
+          "POI"
+        ]
+      },
+      {
+        "Position": {
+          "x": 29,
+          "y": 1,
+          "z": 6
+        },
+        "Tags": [
+          "POI"
+        ]
+      },
+      {
+        "Position": {
+          "x": 38,
+          "y": 1,
+          "z": -6
+        },
+        "Tags": [
+          "POI"
+        ]
+      },
+      {
+        "Position": {
+          "x": 38,
+          "y": 1,
+          "z": 0
+        },
+        "Tags": [
+          "POI"
+        ]
+      },
+      {
+        "Position": {
+          "x": 38,
+          "y": 1,
+          "z": 6
+        },
+        "Tags": [
+          "POI"
+        ]
       }
     ],
     "ObjectStates": []
@@ -430,15 +771,9 @@
     "Objective_Tokens.094239.json",
     "Custom_Model.294fce.json",
     "Condition_Tokens.4d25eb.json",
-    "Standby_Tokens.f103c2.json",
-    "Disabled_Tokens.411240.json",
     "Damaged_Tokens.f01412.json",
-    "Aim_Tokens.beca0f.json",
-    "Dodge_Tokens.4a352e.json",
     "Ion_Tokens.799a75.json",
-    "Suppression_Tokens.a25e12.json",
     "Commander_Token.6e5671.json",
-    "Weapon_Destroyed_Tokens.3fd3d7.json",
     "Panic_Tokens.0c46ed.json",
     "Unit_ID_Token.21550f.json",
     "Custom_Model.071592.json",
@@ -473,7 +808,6 @@
     "White_D8.014405.json",
     "D6.22127e.json",
     "D6.7a88d3.json",
-    "Wound_Tokens.276535.json",
     "Turn_Counter.2ec62e.json",
     "Red_List_Builder_Option_4.b1c973.json",
     "Red_List_Builder_Option_4_Button.1faf70.json",
@@ -481,26 +815,33 @@
     "Blue_List_Builder_Option_4_Button.e1e76b.json",
     "RED_DATA_DISK_MOUNT.ace9b9.json",
     "BLUE_DATA_DISK_MOUNT.87a622.json",
-    "Custom_PDF.f3fafa.json",
-    "Custom_PDF.2188f8.json",
-    "Surge_Tokens.f539b0.json",
-    "Smoke_Tokens.d03507.json",
+    "Skirmish_Rules.f3fafa.json",
+    "Rules.2188f8.json",
     "Graffiti_Tokens.b912ed.json",
     "Shield_Tokens.30979f.json",
     "Poison_Tokens.07d3a7.json",
     "Wheel_Mode_Tokens.507367.json",
     "Skirmish_Card_Decks.168d90.json",
     "Silhouette_Markers.3cb9ab.json",
-    "Custom_PDF.068976.json",
+    "Spec_Ops_Rules.068976.json",
     "Blank_Order_Tokens.c5f484.json",
     "Operative_Marker_Tokens.125746.json",
     "Cad_Bane_Tokens.e4bee8.json",
-    "Observation_Tokens.aac68d.json",
-    "Incognito_Tokens.c4364f.json",
     "TABLE.3a3ed9.json",
     "Saved_Map.38fcd0.json",
-    "Blitz_Deck_Bag.169190.json",
-    "POI_Tokens.094230.json",
+    "Blitz_Card_Decks.169190.json",
+    "Aim_Tokens.45dfbf.json",
+    "Asset_Tokens.1ad0ad.json",
+    "Dodge_Tokens.c81bb2.json",
+    "Advantage_Tokens.bcff8d.json",
+    "Standby_Tokens.968b7a.json",
+    "Surge_Tokens.7fb536.json",
+    "Observation_Tokens.6ad4de.json",
+    "Smoke_Tokens.2e3fb1.json",
+    "Incognito_Tokens.a45c8f.json",
+    "Suppression_Tokens.91a7ec.json",
+    "Wound_Tokens.a25349.json",
+    "POI_Tokens.c06016.json",
     "RULES_PANEL.e0d001.json",
     "Rules_Panel_Option_1.e0d002.json",
     "Rules_Panel_Option_2.e0d003.json",

@@ -1,9 +1,6 @@
 require('!/Analytics')
 require('!/Deck')
 
-existingMasks = {}
-existingPoiGuide = nil
-
 function onload(save_state)
     _G.Deck = Deck:create()
 
@@ -86,6 +83,7 @@ function mainMenu()
     local menuEntries = {}
     menuEntries[1] = {functionName = "mapMenu", label = "Maps", tooltip = "Map Menu", buttonTint = {0,0.913,1}}
     menuEntries[2] = {functionName = "gameOptionsMenu", label = "Set Up", tooltip = "Set Up options menu", buttonTint = {0,0.913,1}}
+    menuEntries[3] = {functionName = "configMenu", label = "Config", tooltip = "Config Menu", buttonTint = {0,0.913,1}}
 
     createMenu(menuEntries, 1)
 
@@ -242,6 +240,95 @@ function gameOptionsMenu()
     createMenu(menuEntries, 1)
 end
 
+function configMenu()
+    ga_view("game_controller/config_menu")
+    printToScreen("CONFIG MENU", 80, 3)
+
+    clearAllButtons()
+    changeBackButton("mainMenu", "Go back to Main Menu")
+
+    local menuEntries = {}
+    menuEntries[1] = {functionName = "cardArtMenu", label = "Card Art", tooltip = "Card art loading options", buttonTint = {0,0.913,1}}
+    createMenu(menuEntries, 1)
+end
+
+function cardArtMenu()
+    ga_view("game_controller/config_menu/card_art")
+    printToScreen("CARD ART", 80, 3)
+
+    clearAllButtons()
+    changeBackButton("configMenu", "Go back to Config Menu")
+
+    local menuEntries = {}
+    menuEntries[1] = {functionName = "legionHelperInfo", label = "Legion Helper", tooltip = "What do the options below do?", buttonTint = {0,0.913,1}}
+    menuEntries[2] = {functionName = "loadLegionHelperActiveArmyMenu", label = "Load Active", tooltip = "Send the units/upgrades/commands/battlefield cards currently on the table to Legion Helper and load only their art - fast", buttonTint = {0,0.913,1}}
+    menuEntries[3] = {functionName = "confirmLoadAllUpgrades", label = "All Upgrades", tooltip = "Load every upgrade card's art from Legion Helper - slow, loads the full database", buttonTint = {0,0.913,1}}
+    menuEntries[4] = {functionName = "confirmLoadAllCards", label = "All Cards", tooltip = "Load every unit/upgrade/command card's art from Legion Helper - slow, loads the full database", buttonTint = {0,0.913,1}}
+    createMenu(menuEntries, 1)
+end
+
+function legionHelperInfo()
+    ga_event("Game", "legionHelperInfo")
+    printToAll(
+        "Legion Helper loads updated card art from Legion Helpers custom cards server. " ..
+        "\"Load Active\" only asks for art for units/upgrades/commands currently on the table - fast. " ..
+        "\"All Upgrades\" / \"All Cards\" load the entire card database instead - slower, and will ask you to confirm first.",
+        {1, 1, 1}
+    )
+end
+
+function loadLegionHelperActiveArmyMenu()
+    ga_event("Game", "loadLegionHelperActiveArmy")
+    Global.call("loadLegionHelperActiveArmy")
+end
+
+-- "All Upgrades" / "All Cards" fetch and apply Legion Helper's full export
+-- (900+ entries) rather than just what's on the table, which takes several
+-- seconds and is visibly slower than Load Active - worth a confirm step so
+-- it isn't triggered by an accidental tap.
+function confirmLoadAllUpgrades()
+    _showLoadAllConfirm("ALL UPGRADES", "confirmedLoadAllUpgrades")
+end
+
+function confirmLoadAllCards()
+    _showLoadAllConfirm("ALL CARDS", "confirmedLoadAllCards")
+end
+
+function _showLoadAllConfirm(label, confirmFunctionName)
+    ga_view("game_controller/config_menu/confirm_load_all")
+    printToScreen(
+        "LOAD " .. label .. "?\n\n" ..
+        "This loads Legion Helper's full card database\n" ..
+        "instead of just what's on the table. It can\n" ..
+        "take several seconds and may cause some\n" ..
+        "stuttering while it applies.\n\n" ..
+        "Confirm to continue, or Back to cancel.",
+        50, 3
+    )
+    clearAllButtons()
+    changeBackButton("cardArtMenu", "Cancel and go back to Card Art Menu")
+    local menuEntries = {}
+    menuEntries[1] = {functionName = confirmFunctionName, label = "Confirm", tooltip = "This can take several seconds and may cause some stuttering", buttonTint = {0.9,0.2,0.2}}
+    createMenu(menuEntries, 1)
+end
+
+function confirmedLoadAllUpgrades()
+    ga_event("Game", "loadLegionHelperUpgrades")
+    Global.call("loadLegionHelperUpgrades")
+    cardArtMenu()
+end
+
+function confirmedLoadAllCards()
+    ga_event("Game", "loadLegionHelperCards")
+    Global.call("loadLegionHelperCards")
+    cardArtMenu()
+end
+
+function togglePoiSnap()
+    ga_event("Game", "togglePoiSnap")
+    Global.call("togglePoiSnapPoints")
+end
+
 function mapMenu()
     ga_view("game_controller/map_menu")
     printToScreen("MAP MENU", 80, 3)
@@ -261,6 +348,7 @@ function mapMenu()
     menuEntries[7] = {functionName = "saveConditions", label = "Save Battlefield Tokens", tooltip = "Saves Objects from the Objective/Deployment/Conditions", buttonTint = {0,0.913,1}}
     menuEntries[8] = {functionName = "toggleMaskMid", label = "Toggle Masks : Mid", tooltip = "Toggles Masking Objects for the middle of the Battlefield", buttonTint = {0,0.913,1}}
     menuEntries[9] = {functionName = "togglePoiGuide", label = "Toggle Poi Guide", tooltip = "Toggles Poi Layout Projector to help with Map Creation", buttonTint = {0,0.913,1}}
+    menuEntries[10] = {functionName = "togglePoiSnap", label = "Toggle POI Snap", tooltip = "Toggles snap points on the POI guide circles for POI tokens", buttonTint = {0,0.913,1}}
     createMenu(menuEntries, 1)
 end
 
@@ -286,13 +374,31 @@ function featuredMapsMenu()
   createMenu(menuEntries, 1)
 end
 
+-- WebRequest responses aren't guaranteed to be valid JSON (a dead/expired
+-- link can return an HTML error page instead), so JSON.decode needs a pcall
+-- guard wherever we feed it a network response - otherwise a single broken
+-- community-contributed link crashes with a raw Lua error and leaves the
+-- player stuck mid-menu instead of getting a clear message back.
+function safeJsonDecode(text)
+  local ok, result = pcall(JSON.decode, text)
+  if ok and type(result) == "table" then
+    return result
+  end
+  return nil
+end
+
 function featuredCompetitiveMenu()
   ga_view("game_controller/featured_maps/competitive")
   printToScreen("FEATURED MAPS\n\nThese are maps featured by the community.\n\nSee https://go.swlegion.dev/maps for details.", 80, 3)
   changeBackButton("featuredMapsMenu", "Go back to featured maps")
   local url = "https://raw.githubusercontent.com/swlegion/tts/master/contrib/maps/competitive.json"
   WebRequest.get(url, function(data)
-    local items = JSON.decode(data.text)
+    local items = safeJsonDecode(data.text)
+    if items == nil then
+      printToAll("Could not load the featured maps list. Check your connection, or try again later.", {1, 0.5, 0.5})
+      featuredMapsMenu()
+      return
+    end
     local menu = {}
     for _, entry in pairs(items) do
       table.insert(menu, {
@@ -312,7 +418,12 @@ function featuredSkirmisMenu()
   changeBackButton("featuredMapsMenu", "Go back to featured maps")
   local url = "https://raw.githubusercontent.com/swlegion/tts/master/contrib/maps/skirmish.json"
   WebRequest.get(url, function(data)
-    local items = JSON.decode(data.text)
+    local items = safeJsonDecode(data.text)
+    if items == nil then
+      printToAll("Could not load the featured maps list. Check your connection, or try again later.", {1, 0.5, 0.5})
+      featuredMapsMenu()
+      return
+    end
     local menu = {}
     for _, entry in pairs(items) do
       table.insert(menu, {
@@ -934,9 +1045,10 @@ function downloadMapByUrl(url)
     local text = data.text
     printToScreen("UNPACKING MAP...\n\nThis may take several seconds...")
     Wait.frames(function()
-      local json = JSON.decode(text)
-      if not json.ObjectStates then
-        printToAll("Failed to decode map.")
+      local json = safeJsonDecode(text)
+      if json == nil or not json.ObjectStates then
+        printToAll("Could not download this map - the link may be broken or no longer hosts a valid map file.", {1, 0.5, 0.5})
+        mainMenu()
         return
       end
       spawnObjectJSON({
@@ -1007,14 +1119,24 @@ function enableExperimentalFeatures()
     Global.UI.show("legionDisplay")
 end
 
-function getExistingMaskLength()
-    local length = 0
-    if existingMasks != nil then
-        for i, obj in pairs(existingMasks) do
-            length = length + 1
+-- Bugfix:
+-- The various projector overlays (Poi Guide, Masking Boundary) are tracked in
+-- plain variables that reset to nil/empty on every script reload (including
+-- every save/load), while the physical objects they point at persist on the
+-- table. Looking them up by name instead means toggling stays correct even
+-- after a reload, and also cleans up any orphans left over from before.
+function findObjectsByName(name)
+    local matches = {}
+    for _, obj in ipairs(getAllObjects()) do
+        if obj.getName() == name then
+            table.insert(matches, obj)
         end
     end
-    return length
+    return matches
+end
+
+function getExistingMaskLength()
+    return #findObjectsByName("Masking Boundary")
 end
 
 function toggleMaskMid()   
@@ -1054,13 +1176,8 @@ function toggleMaskLeft()
 end
 
 function clearMasks()
-    if existingMasks != nil then
-        for i, obj in pairs(existingMasks) do
-            if obj != nil then
-                destroyObject(obj)
-            end
-        end
-        existingMasks = {}
+    for _, obj in ipairs(findObjectsByName("Masking Boundary")) do
+        destroyObject(obj)
     end
 end
 
@@ -1079,15 +1196,15 @@ function placeMask(x, z)
       projector.setLock(true)
       projector.setCustomObject({
         assetbundle = asset,
-      })  
-    table.insert(existingMasks, projector)
+      })
 end
 
-function togglePoiGuide()   
-    local length = getExistingMaskLength() 
-    if existingPoiGuide ~= nil then
-        destroyObject(existingPoiGuide)
-        existingPoiGuide = nil
+function togglePoiGuide()
+    local existing = findObjectsByName("Poi Guide")
+    if #existing > 0 then
+        for _, obj in ipairs(existing) do
+            destroyObject(obj)
+        end
     else
         local projector = spawnObject({
             type = "Custom_AssetBundle",
@@ -1100,6 +1217,5 @@ function togglePoiGuide()
         projector.setCustomObject({
             assetbundle = asset
         })
-        existingPoiGuide = projector
     end
 end

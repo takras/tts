@@ -16,12 +16,18 @@
     "Nickname": "Unit List Builder Template",
     "Description": "",
     "GMNotes": "",
+    "AltLookAngle": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
     "ColorDiffuse": {
-      "r": 0.137212425,
-      "g": 0.188192815,
-      "b": 0.211719871
+      "r": 0.13721171,
+      "g": 0.1881921,
+      "b": 0.211719126
     },
     "LayoutGroupSortIndex": 0,
+    "Value": 0,
     "Locked": true,
     "Grid": true,
     "Snap": true,
@@ -45,7 +51,7 @@
       "CastShadows": true
     },
     "LuaScript": "#include ./Unit_List_Builder_Template.ba9920.lua",
-    "LuaScriptState": "",
+    "LuaScriptState": "#include ./Unit_List_Builder_Template.ba9920.state.json",
     "XmlUI": ""
   },
   "StatesPaths": {}

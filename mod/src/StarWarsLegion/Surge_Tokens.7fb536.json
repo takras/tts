@@ -1,0 +1,54 @@
+{
+  "Object": {
+    "GUID": "7fb536",
+    "Name": "Infinite_Bag",
+    "Transform": {
+      "posX": -45.5989037,
+      "posY": 0.907875061,
+      "posZ": -8.629575,
+      "rotX": -0.000009380992,
+      "rotY": 0.00611465564,
+      "rotZ": -0.00000203928039,
+      "scaleX": 0.9250001,
+      "scaleY": 0.9250001,
+      "scaleZ": 0.9250001
+    },
+    "Nickname": "Surge Tokens",
+    "Description": "",
+    "GMNotes": "",
+    "AltLookAngle": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "ColorDiffuse": {
+      "r": 0.323944181,
+      "g": 1,
+      "b": 0.305881977
+    },
+    "LayoutGroupSortIndex": 0,
+    "Value": 0,
+    "Locked": true,
+    "Grid": true,
+    "Snap": true,
+    "IgnoreFoW": false,
+    "MeasureMovement": false,
+    "DragSelectable": true,
+    "Autoraise": true,
+    "Sticky": true,
+    "Tooltip": true,
+    "GridProjection": false,
+    "HideWhenFaceDown": false,
+    "Hands": false,
+    "MaterialIndex": -1,
+    "MeshIndex": -1,
+    "LuaScript": "",
+    "LuaScriptState": "",
+    "XmlUI": "",
+    "ContainedObjects": []
+  },
+  "StatesPaths": {},
+  "ContainedObjectPaths": [
+    "Custom_Token.ca110e.json"
+  ]
+}

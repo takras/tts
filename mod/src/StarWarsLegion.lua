@@ -6,9 +6,7 @@ require('!/generated/cards')
 require('!/UI')
 require('!/RangeRulers')
 require('!/Cohesion')
--- Must stay AFTER !/RangeRulers and !/Cohesion: it captures their original
--- functions before shadowing them.
-require('!/IsqOverlays')
+require('!/Battlefield')
 
 -- Must be spelled onSave: unlike onload, TTS has no all-lowercase alias for it,
 -- so an onsave() is never called and the global script saves nothing at all.
@@ -18,6 +16,7 @@ function onSave()
   return JSON.encode({
     clocks = chessClocksActive,
     welcome = welcomeDialogActive,
+    poiSnap = isPoiSnapEnabled(),
   })
 end
 
@@ -228,17 +227,29 @@ function onload(saveData)
 
     highestPoint = 0
 
+    -- Options for the behaviour shared by every mini (see includes/data/MiniShared):
+    --   hug:      keep a dragged mini on the table surface while it is outside the battlefield
+    --   edgeSnap: snap a mini dropped just outside the battlefield so its base touches the edge
+    --   upright:  stand a mini back up if it tips over after a drop or collision
+    miniOptions = {hug = true, edgeSnap = true, upright = true}
+
+    -- POI snap points (only POI tokens snap to them); default on for new saves.
+    Wait.time(function()
+      setPoiSnapPoints(loadData.poiSnap ~= false)
+    end, 2)
+
     -- token Bags
-    aimBagGUID = "beca0f"
-    dodgeBagGUID = "4a352e"
-    standbyBagGUID = "f103c2"
-    surgeBagGUID = "f539b0"
-    suppressionBagGUID = "a25e12"
-    smokeBagGUID = "d03507"
+    aimBagGUID = "45dfbf"
+    dodgeBagGUID = "c81bb2"
+    standbyBagGUID = "968b7a"
+    surgeBagGUID = "7fb536"
+    smokeBagGUID = "2e3fb1"
+    observationBagGUID = "6ad4de"
+    woundBagGUID = "a25349"
+    suppressionBagGUID = "91a7ec"
+    poiBagGUID = "c06016"
+    
     ionBagGUID = "799a75"
-    woundBagGUID = "276535"
-    observationBagGUID = "aac68d"
-    poiBagGUID = "094230"
 
     whiteD8BagGUID = "014405"
     blackD8BagGUID = "79ead4"
@@ -598,9 +609,39 @@ end
 function initHotkeys()
   initRangebandHotkeys()
   initCohesionHotkeys()
+  initHeightHotkeys()
   initTokenHotkeys()
   initChessClockHotkeys()
 end
+
+-- Height Hotkeys --
+function initHeightHotkeys()
+  addHotkey(
+    "Cycle Height Indicator On Hovered Model",
+    function (playerColor, hoverObject, cursorPosition)
+      cycleHeightOnHoveredModel(hoverObject)
+    end
+  )
+end
+
+-- Works on any mini of a unit: non-leader minis forward to their leader.
+function cycleHeightOnHoveredModel(hoverObject)
+  if hoverObject == nil then
+    return
+  end
+  local leader = hoverObject
+  if hoverObject.getVar("isAMini") ~= true then
+    local leaderGUID = hoverObject.getVar("leaderGUID")
+    if leaderGUID == nil then
+      return
+    end
+    leader = getObjectFromGUID(leaderGUID)
+  end
+  if leader ~= nil then
+    leader.call("cycleHeightIndicator")
+  end
+end
+-- END Height Hotkeys --
 
 -- Rangeband Hotkeys --
 function initRangebandHotkeys()

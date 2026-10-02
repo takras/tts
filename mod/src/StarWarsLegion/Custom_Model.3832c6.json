@@ -6,9 +6,9 @@
       "posX": -35.3118629,
       "posY": 0.9420178,
       "posZ": 18.51799,
-      "rotX": -0.00160665379,
+      "rotX": -0.00160665659,
       "rotY": 359.989166,
-      "rotZ": 0.00000169342866,
+      "rotZ": 0.00000169342923,
       "scaleX": 1,
       "scaleY": 1,
       "scaleZ": 1
@@ -16,12 +16,18 @@
     "Nickname": "",
     "Description": "",
     "GMNotes": "",
+    "AltLookAngle": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
     "ColorDiffuse": {
       "r": 1,
       "g": 1,
       "b": 1
     },
     "LayoutGroupSortIndex": 0,
+    "Value": 0,
     "Locked": true,
     "Grid": true,
     "Snap": true,
@@ -58,8 +64,7 @@
           "x": -0.00160615158,
           "y": 0.00110649061,
           "z": -0.00000243439058
-        },
-        "Tags": []
+        }
       }
     ]
   },

@@ -363,28 +363,91 @@ function resetButtons()
             font_color = {0.4709, 0.9759, 0.9162, 1},
             tooltip = "Spawn Range Rulers"
         })
+
+        -- New height-indicator button
+        self.createButton({
+            click_function = "cycleHeight",
+            function_owner = self,
+            label = heightButtonLabel(),
+            position = {1.6, 0.2, -2.0},
+            height = 350,
+            width = 750,
+            font_size = 150,
+            font_color = {0.4709, 0.9759, 0.9162, 1},
+            color = {0, 0, 0, 1},
+            tooltip = "Cycle height indicator on this unit: off | height 1 | height 2"
+        })
     end
 end
 
-function toggleCohesionRuler()
-    -- Iron Squadron overlays (see !/IsqOverlays): route this button to the
-    -- Projector renderer when they are on. Off by default, in which case
-    -- everything below runs unchanged.
-    if isqOverlaysOn() then
-        if not selectedUnitObj then return end
-        -- Clear before toggling on: the hover hotkey writes to the same key as
-        -- this unit, so without the clear the first click here would turn that
-        -- overlay off while we set rulerOn = true, leaving the button inverted
-        -- from then on.
-        isqClearCohesion({figGUID = selectedUnitObj.getGUID()})
-        if rulerOn then
-            rulerOn = false
-        else
-            isqToggleCohesion({figGUID = selectedUnitObj.getGUID()})
-            rulerOn = true
-        end
-        return
+function heightButtonLabel()
+    local level = 0
+    if selectedUnitObj then
+        level = selectedUnitObj.getVar("heightState") or 0
     end
+    return "HEIGHT " .. level
+end
+
+function cycleHeight()
+    if selectedUnitObj then
+        selectedUnitObj.call("cycleHeightIndicator")
+        local index = findButtonIndex("cycleHeight")
+        if index ~= nil then
+            self.editButton({index = index, label = heightButtonLabel()})
+        end
+    end
+end
+
+-- Cycle through buttons
+function findButtonIndex(clickFunction)
+    for _, button in ipairs(self.getButtons() or {}) do
+        if button.click_function == clickFunction then
+            return button.index
+        end
+    end
+    return nil
+end
+
+-- Finds the surface height under mini position
+function findLandingHeight(pos, fallbackY)
+    local ignoreGUIDs = {}
+    if selectedUnitObj then
+        for _, guid in pairs(selectedUnitObj.getTable("miniGUIDs") or {}) do
+            ignoreGUIDs[guid] = true
+        end
+    end
+    local ignoreNames = {
+        ["Movement Template (A)"] = true,
+        ["Movement Template (B)"] = true,
+        ["Maximum Move"] = true,
+        ["Cohesion Ruler"] = true,
+        ["Range Ruler"] = true,
+        ["Height Indicator"] = true,
+        ["Silhouette"] = true,
+    }
+    local hits = Physics.cast({
+        origin = {pos.x, pos.y + 30, pos.z},
+        direction = {0, -1, 0},
+        type = 1,
+        max_distance = 60,
+    })
+    local best = nil
+
+    for _, hit in ipairs(hits or {}) do
+        local obj = hit.hit_object
+        if obj ~= nil and not ignoreGUIDs[obj.getGUID()] and not ignoreNames[obj.getName()] then
+            if best == nil or hit.point.y > best then
+                best = hit.point.y
+            end
+        end
+    end
+    if best == nil then
+        return fallbackY + 2
+    end
+    return best + 0.3
+end
+
+function toggleCohesionRuler()
     if not rulerOn then
         selectedUnitObj.call("spawnCohesionRuler", selectedUnitObj)
         rulerOn = true
@@ -720,7 +783,7 @@ function moveFull()
         local startRot = templateB.getRotation()
         local endOffset = unitData.baseSize == "small" and templateInfo.deployMod.small or 0.0
         local endPos = translatePos(startPos, startRot, unitData.aStart + endOffset, 0)
-        endPos.y = endPos.y + 2
+        endPos.y = findLandingHeight(endPos, endPos.y)
 
         local endRot = startRot
         if moveDirection == "backward" then
@@ -741,8 +804,8 @@ end
 
 
 function moveStart()
-    local endPos = initPos
-    endPos.y = initPos.y + 2
+    -- initPos must stay untouched
+    local endPos = Vector(initPos.x, findLandingHeight(initPos, initPos.y), initPos.z)
     selectedUnitObj.setPositionSmooth(endPos, false, false)
     selectedUnitObj.setRotationSmooth(initRot, false, false)
     Wait.frames(function()
@@ -751,23 +814,29 @@ function moveStart()
 end
 
 function moveBackwards()
-    self.editButton({
-        index = 11,
-        click_function = "moveForward",
-        label = "F",
-        tooltip = "Move Forwards"
-    })
+    local index = findButtonIndex("moveBackwards")
+    if index ~= nil then
+        self.editButton({
+            index = index,
+            click_function = "moveForward",
+            label = "F",
+            tooltip = "Move Forwards"
+        })
+    end
     moveDirection = "backward"
     moveUnit()
 end
 
 function moveForward()
-    self.editButton({
-        index = 11,
-        click_function = "moveBackwards",
-        label = "B",
-        tooltip = "Move Backwards"
-    })
+    local index = findButtonIndex("moveForward")
+    if index ~= nil then
+        self.editButton({
+            index = index,
+            click_function = "moveBackwards",
+            label = "B",
+            tooltip = "Move Backwards"
+        })
+    end
     moveDirection = "forward"
     moveUnit()
 end
@@ -797,10 +866,6 @@ end
 ------------------------------------------------- Clear templates------------------------------------------------------------
 function clearTemplates()
     clearMovementTemplates()
-    -- Iron Squadron overlays (see !/IsqOverlays): clearRangeRulers only wipes
-    -- the vanilla ruler, so ours has to be cleared alongside it. No-op when the
-    -- overlays are off, which is the default.
-    isqOrderClearRange()
     clearRangeRulers()
     clearCohesionRulers()
 end
@@ -954,39 +1019,11 @@ function attack()
     attackMode()
 end
 
--- Iron Squadron overlays (see !/IsqOverlays): draw and clear this token's range
--- with the Projector renderer when they are on. Both are no-ops when they are
--- off, which is the default, so the vanilla calls around them are untouched.
---
--- These two only ever call into the module. The vanilla spawnRangeRuler and
--- clearRangeRulers are deliberately NOT overridden on this object: doing so
--- crashed Tabletop Simulator on macOS whenever a figure hotkey spawned a range
--- bundle, so only their callers are adapted.
-function isqOrderSpawnRange()
-    if not selectedUnitObj then return end
-    if not isqOverlaysOn() then return end
-    -- Clear before triggering: the module toggles by GUID and the hover hotkey
-    -- writes to this same unit, so without the clear a click meant to draw
-    -- could erase instead.
-    isqClearRange({figGUID = selectedUnitObj.getGUID()})
-    isqRangeTrigger({figGUID = selectedUnitObj.getGUID()})
-end
-
-function isqOrderClearRange()
-    if not selectedUnitObj then return end
-    if not isqOverlaysOn() then return end
-    isqClearRange({figGUID = selectedUnitObj.getGUID()})
-end
-
 function targetingMode()
     if not enemyHighlighted then
         exitAttackMode()
         highlightEnemies()
-        if isqOverlaysOn() then
-            isqOrderSpawnRange()
-        else
-            spawnRangeRuler(selectedUnitObj)
-        end
+        spawnRangeRuler(selectedUnitObj)
         enemyHighlighted = true
         resetRangeButtons()
     else
@@ -998,11 +1035,7 @@ function attackMode()
     if not attackModeOn then
         exitTargetingMode()
         highlightEnemies()
-        if isqOverlaysOn() then
-            isqOrderSpawnRange()
-        else
-            spawnRangeRuler(selectedUnitObj)
-        end
+        spawnRangeRuler(selectedUnitObj)
         attackModeOn = true
         resetTargetingButtons()
     else
@@ -1013,7 +1046,6 @@ end
 function exitTargetingMode()
     enemyHighlighted = false
     attackModeOn = false
-    isqOrderClearRange()
     clearRangeRulers()
     unhighlightEnemies()
     clearAttackLine()
@@ -1022,7 +1054,6 @@ end
 function exitAttackMode()
     enemyHighlighted = false
     attackModeOn = false
-    isqOrderClearRange()
     clearRangeRulers()
     unhighlightEnemies()
 end

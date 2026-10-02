@@ -7,6 +7,20 @@ import os from 'os';
 import path from 'path';
 import buildDeckSchemaLua from './lib/generate-deck-schema';
 
+// Global's XmlUI source is meant to be just these two include directives;
+// everything else it renders (the welcome dialog, the floating menu) lives
+// in mod/src/includes/ui/*.xml and gets spliced in at compile time.
+//
+// The extractor (@matanlurey/tts-expander) does not round-trip *nested* XML
+// includes: Menu.xml itself includes Welcome.xml, and when splitting a save
+// back apart it bakes a fully-expanded, duplicated copy of that content
+// directly into this file instead of leaving the bare include markers
+// alone. Left as-is, recompiling stacks multiple copies of the welcome
+// dialog in-game (and makes it unclosable, since they share the same id).
+// Resetting the file after every extract is the known workaround.
+const CANONICAL_GLOBAL_XML =
+  '<!-- #include !/ui/Menu -->\n<!-- #include !/ui/Clock -->';
+
 /**
  * Reads a `{TTS-SAVE-FILE}.json`, and replaces the contents of a directory.
  */
@@ -17,11 +31,12 @@ export async function extractSaveFile(
   if (!fs.pathExists(source)) {
     throw new Error(`No source file "${source}".`);
   }
+  let baseName: string | undefined;
   if (!fs.pathExists(output)) {
     console.info(`Creating output directory "${output}"`);
     await fs.mkdirp(output);
   } else {
-    const baseName = path.basename(source).split('.')[0];
+    baseName = path.basename(source).split('.')[0];
     const modOutput = path.join(output, baseName);
     console.info(`Clearing output directory "${modOutput}"`);
     await fs.remove(modOutput);
@@ -32,6 +47,17 @@ export async function extractSaveFile(
   const modTree = await splitter.readSaveAndSplit(source);
   await splitter.writeSplit(output, modTree);
   console.info(`Wrote "${output}"...`);
+
+  if (baseName) {
+    const globalXmlPath = path.join(output, `${baseName}.xml`);
+    if (await fs.pathExists(globalXmlPath)) {
+      await fs.writeFile(globalXmlPath, CANONICAL_GLOBAL_XML, 'utf8');
+      console.info(
+        `Reset "${globalXmlPath}" to its include-only form (works around ` +
+          `a known extractor bug with nested XML includes).`,
+      );
+    }
+  }
 }
 
 function concatAllObjectScripts(
@@ -103,9 +129,30 @@ export async function compileSaveFile(
   }
 }
 
+/**
+ * Finds the Tabletop Simulator home directory (the one containing `Saves`).
+ *
+ * Honors `TTS_HOME` on any platform, and auto-detects a OneDrive-redirected
+ * Documents folder on Windows (which `steam.homeDir.win32` does not account
+ * for). Otherwise falls back to each platform's normal default location.
+ */
 function defaultTTSHomeDir(): string {
+  if (process.env.TTS_HOME) {
+    return process.env.TTS_HOME;
+  }
   const platform = os.platform();
   if (platform === 'win32') {
+    if (process.env.OneDrive) {
+      const oneDriveHome = path.join(
+        process.env.OneDrive,
+        'Documents',
+        'My Games',
+        'Tabletop Simulator',
+      );
+      if (fs.existsSync(oneDriveHome)) {
+        return oneDriveHome;
+      }
+    }
     return steam.homeDir.win32(process.env);
   }
   if (platform === 'darwin') {

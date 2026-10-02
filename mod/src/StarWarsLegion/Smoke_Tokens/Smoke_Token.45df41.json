@@ -1,0 +1,60 @@
+{
+  "Object": {
+    "GUID": "45df41",
+    "Name": "Custom_Token",
+    "Transform": {
+      "posX": -44.3061752,
+      "posY": 2.38281,
+      "posZ": 2.3002913,
+      "rotX": 0.6834513,
+      "rotY": 180.0049,
+      "rotZ": 358.057037,
+      "scaleX": 0.250000417,
+      "scaleY": 1,
+      "scaleZ": 0.250000417
+    },
+    "Nickname": "Smoke Token",
+    "Description": "",
+    "GMNotes": "",
+    "AltLookAngle": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "ColorDiffuse": {
+      "r": 1,
+      "g": 1,
+      "b": 1
+    },
+    "LayoutGroupSortIndex": 0,
+    "Value": 0,
+    "Locked": false,
+    "Grid": true,
+    "Snap": true,
+    "IgnoreFoW": false,
+    "MeasureMovement": false,
+    "DragSelectable": true,
+    "Autoraise": true,
+    "Sticky": true,
+    "Tooltip": true,
+    "GridProjection": false,
+    "HideWhenFaceDown": false,
+    "Hands": false,
+    "CustomImage": {
+      "ImageURL": "https://steamusercontent-a.akamaihd.net/ugc/12034072500594006312/02DBED5AC9D55FF7D9776C8AE00FAED6B66E0B19/",
+      "ImageSecondaryURL": "",
+      "ImageScalar": 1,
+      "WidthScale": 0,
+      "CustomToken": {
+        "Thickness": 0.1,
+        "MergeDistancePixels": 15,
+        "StandUp": false,
+        "Stackable": false
+      }
+    },
+    "LuaScript": "",
+    "LuaScriptState": "",
+    "XmlUI": ""
+  },
+  "StatesPaths": {}
+}

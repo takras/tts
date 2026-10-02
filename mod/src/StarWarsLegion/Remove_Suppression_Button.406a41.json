@@ -16,12 +16,18 @@
     "Nickname": "Remove Suppression Button",
     "Description": "",
     "GMNotes": "",
+    "AltLookAngle": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
     "ColorDiffuse": {
       "r": 0.9076521,
       "g": 0.87377274,
-      "b": 0.239221245
+      "b": 0.23922047
     },
     "LayoutGroupSortIndex": 0,
+    "Value": 0,
     "Locked": true,
     "Grid": true,
     "Snap": true,

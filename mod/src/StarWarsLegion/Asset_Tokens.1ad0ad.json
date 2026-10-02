@@ -1,0 +1,54 @@
+{
+  "Object": {
+    "GUID": "1ad0ad",
+    "Name": "Infinite_Bag",
+    "Transform": {
+      "posX": 60.7092819,
+      "posY": 0.90320003,
+      "posZ": 11.7368126,
+      "rotX": -4.19486582e-7,
+      "rotY": 0.0005893133,
+      "rotZ": -0.00000102183594,
+      "scaleX": 1.19999993,
+      "scaleY": 1.19999993,
+      "scaleZ": 1.19999993
+    },
+    "Nickname": "Asset Tokens",
+    "Description": "",
+    "GMNotes": "",
+    "AltLookAngle": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "ColorDiffuse": {
+      "r": 0.9063877,
+      "g": 0.914876759,
+      "b": 0.994773448
+    },
+    "LayoutGroupSortIndex": 0,
+    "Value": 0,
+    "Locked": true,
+    "Grid": true,
+    "Snap": true,
+    "IgnoreFoW": false,
+    "MeasureMovement": false,
+    "DragSelectable": true,
+    "Autoraise": true,
+    "Sticky": true,
+    "Tooltip": true,
+    "GridProjection": false,
+    "HideWhenFaceDown": false,
+    "Hands": false,
+    "MaterialIndex": -1,
+    "MeshIndex": -1,
+    "LuaScript": "",
+    "LuaScriptState": "",
+    "XmlUI": "",
+    "ContainedObjects": []
+  },
+  "StatesPaths": {},
+  "ContainedObjectPaths": [
+    "Custom_Token.5c2be9.json"
+  ]
+}

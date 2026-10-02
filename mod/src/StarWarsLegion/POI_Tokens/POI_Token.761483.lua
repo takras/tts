@@ -11,6 +11,8 @@ require('!/RangeRulers')
 
 function onLoad()
   rangeOn = false
+  -- only tagged objects snap to the POI guide snap points on the battlefield
+  self.addTag("POI")
   createButton({0, 0, 0})
   createButton({0, 0, 180})
   addSilhouetteButton()
@@ -24,7 +26,7 @@ function createButton(rotation)
     function_owner = self,
     label = "R",
     tooltip = "Spawn Range Ruler",
-    position = {-0.2, 0.1, 1.15},
+    position = {-0.2, 0.1, 1.5},
     rotation = rotation,
     width = 230,
     height = 180,
@@ -39,18 +41,6 @@ function onDestroy()
 end
 
 function toggleRangeRuler()
-  -- Iron Squadron overlays (see !/IsqOverlays): route this token's R button to
-  -- the Projector renderer when they are on, unchanged otherwise.
-  if isqOverlaysOn() then
-    isqClearRange({figGUID = self.getGUID()})
-    if rangeOn then
-      rangeOn = false
-    else
-      isqRangeTrigger({figGUID = self.getGUID()})
-      rangeOn = true
-    end
-    return
-  end
   clearRangeRuler()
   rangeOn = not rangeOn
   if rangeOn then
@@ -80,7 +70,7 @@ function addSilhouetteButton()
       function_owner = self,
       label = "SIL",
       tooltip = "Toggle silhouettes on this unit",
-      position = {0.2, 0.1, 1.15},
+      position = {0.2, 0.1, 1.5},
       width = 230,
       height = 180,
       font_size = 100,

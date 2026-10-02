@@ -16,12 +16,18 @@
     "Nickname": "Data Disk",
     "Description": "For quick loading of army lists:\n\nRight Click me and Save Object.\n\nGo to Menu > Objects > Saved Objects > select this Data Disk to load.\n\nInsert Data Disk into Army Loader Mount and Click Load Army to instantly load your army list!",
     "GMNotes": "",
+    "AltLookAngle": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
     "ColorDiffuse": {
       "r": 1,
       "g": 1,
       "b": 1
     },
     "LayoutGroupSortIndex": 0,
+    "Value": 0,
     "Locked": true,
     "Grid": true,
     "Snap": true,

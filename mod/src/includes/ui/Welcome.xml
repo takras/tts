@@ -49,6 +49,21 @@
           - Add: Admiral Trench
           - Add: Super Rocket Battle Droids
           - Add: For the Cause
+          - Add: Config menu on the computer, with one-click Legion Helper card art loading
+          - Add: Side loaded card art retroactively re-skins matching units/cards already on the table
+          - Add: Legion Helper: Active Army sends only the cards on the table to the server and loads just their art
+          - Fix: Side loading card art no longer freezes the game for several seconds
+          - Add: Han and Chewie
+          - Add: Mounted Jedi Generals
+          - Fix: Custom Mando Command Cards
+          - Add: Jedi Knight General and Jedi Knight
+          - Add: Super Tactical Command Droids
+          - Add: Revealed General Grievous, Wheelbike Warlord Card
+          - Add: POI tokens snap to the POI guide circles (Maps menu: Toggle POI Snap)
+          - Add: Height 1 / height 2 indicator (HGT button on the order token, or hotkey)
+          - Add: Leader mini dropped just outside the battlefield snap to touch the edge
+          - Add: Minis stay close to table surface while dragged off the battlefield
+          - Add: Minis stand back up if they tip over after a move or collision
         </Text>
       </VerticalLayout>
     </VerticalScrollView>

@@ -16,12 +16,18 @@
     "Nickname": "Pit [No Cover]",
     "Description": "No Cover:\nAll\n\nSides:\nAll - Open\n\nPit:\nTrooper - Impassable\nG. Vehicle - Impassable\nRepulsor - Open\n\nDoes not obscure LOS",
     "GMNotes": "",
+    "AltLookAngle": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
     "ColorDiffuse": {
       "r": 0.5032066,
       "g": 0.5290279,
       "b": 0.5674805
     },
     "LayoutGroupSortIndex": 0,
+    "Value": 0,
     "Locked": false,
     "Grid": true,
     "Snap": true,

@@ -54,10 +54,116 @@ function experimentalSideLoad()
     broadcastToAll("Side load: paste the URL of a cards file first.", {0.9, 0.4, 0.4})
     return
   end
-  WebRequest.get(sideLoadUrl, function(data)
-    local json = JSON.decode(data.text)
+  sideLoadFromUrl(sideLoadUrl)
+end
+
+-- Known Legion Helper (takras.net) card art feeds. Added to the computer
+-- Config menu as a one-click alternative to pasting a URL into this dialog.
+LEGION_HELPER_CARDS_URL = "https://legion.takras.net/tts/sideload.json"
+LEGION_HELPER_UPGRADES_URL = "https://legion.takras.net/tts/sideload-upgrades.json"
+
+function loadLegionHelperCards()
+  broadcastToAll("Legion Helper: loading card art...", {1, 1, 1})
+  sideLoadFromUrl(LEGION_HELPER_CARDS_URL)
+end
+
+function loadLegionHelperUpgrades()
+  broadcastToAll("Legion Helper: loading upgrade art...", {1, 1, 1})
+  sideLoadFromUrl(LEGION_HELPER_UPGRADES_URL)
+end
+
+-- Attempt to leviate the 'load all at once' freeze.
+local _sideLoadQueue = {}
+local _sideLoadBatchSize = 15
+
+local function _sideLoadEnqueue(fn)
+  table.insert(_sideLoadQueue, fn)
+end
+
+function _sideLoadRunQueue()
+  local processed = 0
+  while #_sideLoadQueue > 0 do
+    local fn = table.remove(_sideLoadQueue, 1)
+    local ok, err = pcall(fn)
+    if not ok then
+      print("Side load: " .. tostring(err))
+    end
+    processed = processed + 1
+    if processed % _sideLoadBatchSize == 0 then
+      coroutine.yield(0)
+    end
+  end
+  return 1
+end
+
+local function _sideLoadStartQueue()
+  if #_sideLoadQueue > 0 then
+    startLuaCoroutine(Global, "_sideLoadRunQueue")
+  end
+end
+
+local function _stripLeaderSuffix(name)
+  local suffix = " (Unit Leader)"
+  if #name > #suffix and name:sub(-#suffix) == suffix then
+    return name:sub(1, -#suffix - 1)
+  end
+  return name
+end
+
+-- Try to apply the new cards on components already loaded.
+-- Needed if going to use the "load active army cards"
+local function _retroSkinFromMaps(cardsByName, minisByName)
+  if next(cardsByName) ~= nil or next(minisByName) ~= nil then
+    for _, obj in ipairs(getAllObjects()) do
+      _sideLoadEnqueue(function()
+        local ok, custom = pcall(function() return obj.getCustomObject() end)
+        if not ok or custom == nil then
+          return
+        end
+        local name = obj.getName()
+        if custom.face ~= nil then
+          local art = cardsByName[name:upper()]
+          if art then
+            obj.setCustomObject({face = art.face, back = art.back})
+          end
+          return
+        end
+        local mini = minisByName[_stripLeaderSuffix(name):upper()]
+        if mini == nil then
+          return
+        end
+        if custom.mesh ~= nil and mini.mesh ~= nil then
+          obj.setCustomObject({
+            mesh     = mini.mesh,
+            diffuse  = mini.diffuse,
+            collider = mini.collider or custom.collider,
+            type     = custom.type,
+            material = custom.material,
+          })
+        elseif custom.assetbundle ~= nil and mini.bundle ~= nil then
+          obj.setCustomObject({
+            assetbundle           = mini.bundle,
+            assetbundle_secondary = mini.secondary,
+            type                  = custom.type,
+            material              = custom.material,
+          })
+        end
+      end)
+    end
+  end
+  _sideLoadEnqueue(function()
+    broadcastToAll("Side load complete.", {0.4, 0.9, 0.4})
+  end)
+end
+
+-- Apply the loaded changes to components already spawned.
+function _sideLoadApplyJson(json)
+    local cardsByName = {}
+    local minisByName = {}
+    local queued = 0
+
+    -- Load the units
     if json.units then
-      local loaded = 0
       for faction, ranks in pairs(json.units) do
         for rank, units in pairs(ranks) do
           for _, unit in ipairs(units) do
@@ -67,72 +173,257 @@ function experimentalSideLoad()
             end
             unit.rank = rank
             unit.faction = faction
-            Global.call("sideLoadUnit", {
-              faction = faction,
-              key     = key,
-              unit    = unit,
-            })
-            loaded = loaded + 1
+            _sideLoadEnqueue(function()
+              sideLoadUnit({faction = faction, key = key, unit = unit})
+            end)
+            queued = queued + 1
+
+            if unit.image and unit.image ~= "" then
+              local displayName = unit.name
+              if unit.title then
+                displayName = displayName .. ": " .. unit.title
+              end
+              cardsByName[displayName:upper()] = {face = unit.image, back = unit.image}
+            end
+            if unit.minis and unit.minis[1] then
+              minisByName[unit.name:upper()] = unit.minis[1]
+            end
           end
         end
       end
-      print("Injected " .. tostring(loaded) .. " unit card(s).")
     end
+
+    -- Apply the upgrades if any
     if json.upgrades then
-      local loaded = 0
-      for type, upgrades in pairs(json.upgrades) do
+      for upgradeType, upgrades in pairs(json.upgrades) do
         for _, upgrade in ipairs(upgrades) do
-          upgrade.type = type
-          Global.call("sideLoadUpgrade", {
-            name = upgrade.name,
-            data = upgrade,
-          })
-          loaded = loaded + 1
+          upgrade.type = upgradeType
+          _sideLoadEnqueue(function()
+            sideLoadUpgrade({name = upgrade.name, data = upgrade})
+          end)
+          queued = queued + 1
+
+          if upgrade.image and upgrade.image ~= "" then
+            local displayName = upgrade.name
+            local back = upgrade.image
+            if upgrade.flip then
+              displayName = displayName .. " / " .. upgrade.flip.name
+              back = upgrade.flip.image
+            end
+            cardsByName[displayName:upper()] = {face = upgrade.image, back = back}
+          end
+          local mini = upgrade.mini or (upgrade.minis and upgrade.minis[1])
+          if mini then
+            minisByName[upgrade.name:upper()] = mini
+          end
         end
       end
-      print("Injected " .. tostring(loaded) .. " upgrades card(s).")
     end
+
+    -- Also try command cards, if any
     if json.commands then
-      local loaded = 0
       for faction, commands in pairs(json.commands) do
         for _, command in ipairs(commands) do
           command.faction = faction
-          Global.call("sideLoadCommand", {
-            name = command.name,
-            data = command,
-          })
-          loaded = loaded + 1
-        end
-      end
-      print("Injected " .. tostring(loaded) .. " generic command card(s).")
-    end
-    if json.battlefield then
-      local loaded = 0
-      for type, kinds in pairs(json.battlefield) do
-        for kind, cards in pairs(kinds) do
-          for _, card in ipairs(cards) do
-            Global.call("sideLoadBattlefield", {
-              name = card.name,
-              data = card,
-              type = type,
-              kind = kind,
-            })
-            loaded = loaded + 1
+          _sideLoadEnqueue(function()
+            sideLoadCommand({name = command.name, data = command})
+          end)
+          queued = queued + 1
+
+          if command.image and command.image ~= "" then
+            cardsByName[command.name:upper()] = {face = command.image, back = command.image}
           end
         end
       end
-      print("Injected " .. tostring(loaded) .. " battlefield card(s).")
     end
-    if json.objects then
-      local loaded = 0
-      for name, data in pairs(json.objects) do
-        Global.call("sideLoadObject", {
-          name = name,
-          data = data,
-        })
+
+    if json.battlefield then
+      for battleType, kinds in pairs(json.battlefield) do
+        for kind, cards in pairs(kinds) do
+          for _, card in ipairs(cards) do
+            _sideLoadEnqueue(function()
+              sideLoadBattle({name = card.name, data = card, type = battleType, kind = kind})
+            end)
+            queued = queued + 1
+          end
+        end
       end
     end
+
+    if json.objects then
+      for name, objData in pairs(json.objects) do
+        _sideLoadEnqueue(function()
+          sideLoadObject({name = name, data = objData})
+        end)
+        queued = queued + 1
+      end
+    end
+
+    print("Side load: queued " .. tostring(queued) .. " entries.")
+    _sideLoadEnqueue(function()
+      broadcastToAll("Side load: card database updated, re-skinning the table...", {1, 1, 1})
+      _retroSkinFromMaps(cardsByName, minisByName)
+    end)
+    _sideLoadStartQueue()
+end
+
+-- Fetches a cards.json-format file by URL (Welcome dialog, full/upgrades
+-- Config buttons) and applies it via _sideLoadApplyJson.
+function sideLoadFromUrl(url)
+  WebRequest.get(url, function(data)
+    local json = safeJsonDecode(data.text)
+    if json == nil then
+      broadcastToAll("Side load: the server did not return valid card data.", {0.9, 0.4, 0.4})
+      return
+    end
+    _sideLoadApplyJson(json)
   end)
+end
+
+function safeJsonDecode(text)
+  local ok, result = pcall(JSON.decode, text)
+  if ok and type(result) == "table" then
+    return result
+  end
+  return nil
+end
+
+-- Builds reverse lookups from the CURRENT CardsSchema (base data plus
+-- anything already side-loaded): display name -> {category, faction, name}
+-- for cards, and base name -> {category, faction, name} for minis. Used to
+-- classify whatever's already on the table (see loadLegionHelperActiveArmy)
+-- the same way _retroSkinFromMaps classifies incoming art - by matching
+-- getCustomObject()'s shape and the object's Name against these maps.
+local function _buildSchemaReverseIndex()
+  local schema = Global.getTable("CardsSchema")
+  local cardIndex = {}
+  local miniIndex = {}
+
+  for faction, units in pairs(schema.units or {}) do
+    for _, unit in pairs(units) do
+      local displayName = unit.name
+      if unit.title then
+        displayName = displayName .. ": " .. unit.title
+      end
+      cardIndex[displayName:upper()] = {category = "unit", faction = faction, name = unit.name}
+      miniIndex[unit.name:upper()] = {category = "unit", faction = faction, name = unit.name}
+      if unit.commands then
+        for _, command in ipairs(unit.commands) do
+          cardIndex[command.name:upper()] = {category = "command", name = command.name}
+        end
+      end
+    end
+  end
+
+  for _, upgrade in pairs(schema.upgrades or {}) do
+    local displayName = upgrade.name
+    if upgrade.flip then
+      displayName = displayName .. " / " .. upgrade.flip.name
+    end
+    cardIndex[displayName:upper()] = {category = "upgrade", name = upgrade.name}
+    miniIndex[upgrade.name:upper()] = {category = "upgrade", name = upgrade.name}
+  end
+
+  for _, command in pairs(schema.commands or {}) do
+    cardIndex[command.name:upper()] = {category = "command", name = command.name}
+  end
+
+  for _, categories in pairs(schema.battlefield or {}) do
+    for _, cardsByKey in pairs(categories) do
+      for _, card in pairs(cardsByKey) do
+        cardIndex[card.name:upper()] = {category = "battlefield", name = card.name}
+      end
+    end
+  end
+
+  return cardIndex, miniIndex
+end
+
+-- Scans the table for units/upgrades/commands/battlefield cards actually in
+-- play (matched the same way _retroSkinFromMaps matches incoming art - by
+-- getCustomObject() shape plus name, against the live CardsSchema), and
+-- POSTs that list to the Legion Helper BFF so it can return art for only
+-- those cards instead of its full export.
+--
+-- Requires a matching endpoint on the Legion Helper backend: POST a JSON
+-- body shaped like
+--   {
+--     "units":       [{"faction": "REBEL", "name": "AT-RT"}, ...],
+--     "upgrades":    ["Comms", ...],
+--     "commands":    ["Push", ...],
+--     "battlefield": ["Hemmed In", ...]
+--   }
+-- and respond with a body in the same shape sideload.json already uses
+-- (units/upgrades/commands/battlefield keyed exactly as there), filtered to
+-- just the requested cards.
+LEGION_HELPER_ACTIVE_URL = "https://takras.net/legionbff/tts-sideload-active.php"
+
+function loadLegionHelperActiveArmy()
+  broadcastToAll("Legion Helper: scanning the table for active cards...", {1, 1, 1})
+
+  local cardIndex, miniIndex = _buildSchemaReverseIndex()
+  local seen = {}
+  local active = {units = {}, upgrades = {}, commands = {}, battlefield = {}}
+
+  local function addEntry(entry)
+    if entry == nil then
+      return
+    end
+    local dedupeKey = entry.category .. ":" .. (entry.faction or "") .. ":" .. entry.name:upper()
+    if seen[dedupeKey] then
+      return
+    end
+    seen[dedupeKey] = true
+    if entry.category == "unit" then
+      table.insert(active.units, {faction = entry.faction, name = entry.name})
+    elseif entry.category == "upgrade" then
+      table.insert(active.upgrades, entry.name)
+    elseif entry.category == "command" then
+      table.insert(active.commands, entry.name)
+    elseif entry.category == "battlefield" then
+      table.insert(active.battlefield, entry.name)
+    end
+  end
+
+  -- Scanning getAllObjects() is read-only (no setCustomObject calls)
+  for _, obj in ipairs(getAllObjects()) do
+    _sideLoadEnqueue(function()
+      local ok, custom = pcall(function() return obj.getCustomObject() end)
+      if ok and custom ~= nil then
+        local name = obj.getName()
+        if custom.face ~= nil then
+          addEntry(cardIndex[name:upper()])
+        elseif custom.mesh ~= nil or custom.assetbundle ~= nil then
+          addEntry(miniIndex[_stripLeaderSuffix(name):upper()])
+        end
+      end
+    end)
+  end
+
+  _sideLoadEnqueue(function()
+    local totalActive = #active.units + #active.upgrades + #active.commands + #active.battlefield
+    if totalActive == 0 then
+      broadcastToAll("Legion Helper: no recognized units or cards found on the table. Load an army first.", {0.9, 0.4, 0.4})
+      return
+    end
+    print("Legion Helper: requesting art for " .. tostring(totalActive) .. " active card(s).")
+    WebRequest.custom(
+      LEGION_HELPER_ACTIVE_URL,
+      "POST",
+      true,
+      JSON.encode(active),
+      {["Content-Type"] = "application/json"},
+      function(data)
+        local json = safeJsonDecode(data.text)
+        if json == nil then
+          broadcastToAll("Legion Helper: the server did not return valid card data.", {0.9, 0.4, 0.4})
+          return
+        end
+        _sideLoadApplyJson(json)
+      end
+    )
+  end)
+  _sideLoadStartQueue()
 end
 
 function showWelcomeTab1()

@@ -259,6 +259,11 @@ local function initListSpawner(params)
         objEntry.obj.use_snap_points = false
       end
 
+      -- new behaviour shared by every mini
+      if globals.miniSharedScript then
+        selectedMiniScript = selectedMiniScript .. "\n" .. globals.miniSharedScript
+      end
+
       -- SET SCRIPT
       objEntry.obj.setLuaScript(selectedMiniScript)
     end
@@ -386,13 +391,15 @@ local function initListSpawner(params)
     --so load everything off the deck if needed
     local completeUnitData
 
-    local type = unit.type    
+    local type = unit.type
     local silhData = unit.silhData or {}
 
     if unit.silhData == nil then
       silhData = {}
       completeUnitData = deck:getUnitByFactionAndName(faction, name)
-      if completeUnitData.silhouette ~= nil then
+
+      -- Small bugfix for missing names to avoid complete crash
+      if completeUnitData ~= nil and completeUnitData.silhouette ~= nil then
         for k, v in pairs(completeUnitData.silhouette) do
           table.insert(silhData, completeUnitData.silhouette[k])
         end
@@ -402,6 +409,15 @@ local function initListSpawner(params)
     if unit.type == nil then
       if completeUnitData == nil then
         completeUnitData = deck:getUnitByFactionAndName(faction, name)
+      end
+
+      -- Some debug script
+      if completeUnitData == nil then
+        broadcastToAll(
+          "\"" .. name .. "\" was not found in the card database (faction \"" .. tostring(faction) .. "\") - skipping this unit.",
+          {1, 0.3, 0.3}
+        )
+        return
       end
       type = completeUnitData.type
     end

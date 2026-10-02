@@ -6,7 +6,7 @@
       "posX": -35.5000954,
       "posY": 0.942128837,
       "posZ": 22.4785423,
-      "rotX": 0.0016036469,
+      "rotX": 0.0016036497,
       "rotY": 180.020615,
       "rotZ": 0.00000110965732,
       "scaleX": 1,
@@ -16,12 +16,18 @@
     "Nickname": "BLUE LIST BUILDER",
     "Description": "",
     "GMNotes": "",
+    "AltLookAngle": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
     "ColorDiffuse": {
       "r": 1,
       "g": 1,
       "b": 1
     },
     "LayoutGroupSortIndex": 0,
+    "Value": 0,
     "Locked": true,
     "Grid": true,
     "Snap": true,

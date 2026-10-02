@@ -16,12 +16,18 @@
     "Nickname": "",
     "Description": "",
     "GMNotes": "",
+    "AltLookAngle": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
     "ColorDiffuse": {
       "r": 1,
       "g": 1,
       "b": 1
     },
     "LayoutGroupSortIndex": 0,
+    "Value": 0,
     "Locked": true,
     "Grid": true,
     "Snap": true,
@@ -58,8 +64,7 @@
           "x": 0.00000180315772,
           "y": -0.00451817038,
           "z": -0.00154265284
-        },
-        "Tags": []
+        }
       }
     ]
   },

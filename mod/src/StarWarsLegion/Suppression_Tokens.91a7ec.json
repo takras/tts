@@ -1,0 +1,54 @@
+{
+  "Object": {
+    "GUID": "91a7ec",
+    "Name": "Infinite_Bag",
+    "Transform": {
+      "posX": -43.5043869,
+      "posY": 0.9040501,
+      "posZ": 5.91471338,
+      "rotX": -3.56561429e-7,
+      "rotY": 0.0017517095,
+      "rotZ": 8.16655358e-7,
+      "scaleX": 1.15,
+      "scaleY": 1.15,
+      "scaleZ": 1.15
+    },
+    "Nickname": "Suppression Tokens",
+    "Description": "",
+    "GMNotes": "",
+    "AltLookAngle": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "ColorDiffuse": {
+      "r": 1,
+      "g": 0,
+      "b": 0
+    },
+    "LayoutGroupSortIndex": 0,
+    "Value": 0,
+    "Locked": true,
+    "Grid": true,
+    "Snap": true,
+    "IgnoreFoW": false,
+    "MeasureMovement": false,
+    "DragSelectable": true,
+    "Autoraise": true,
+    "Sticky": true,
+    "Tooltip": true,
+    "GridProjection": false,
+    "HideWhenFaceDown": false,
+    "Hands": false,
+    "MaterialIndex": -1,
+    "MeshIndex": -1,
+    "LuaScript": "",
+    "LuaScriptState": "",
+    "XmlUI": "",
+    "ContainedObjects": []
+  },
+  "StatesPaths": {},
+  "ContainedObjectPaths": [
+    "Suppression1.92b2ca.json"
+  ]
+}

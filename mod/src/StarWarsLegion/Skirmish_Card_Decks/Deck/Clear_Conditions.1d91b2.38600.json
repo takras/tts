@@ -16,12 +16,18 @@
     "Nickname": "Clear Conditions",
     "Description": "",
     "GMNotes": "",
+    "AltLookAngle": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
     "ColorDiffuse": {
       "r": 0.713235259,
       "g": 0.713235259,
       "b": 0.713235259
     },
     "LayoutGroupSortIndex": 0,
+    "Value": 0,
     "Locked": false,
     "Grid": true,
     "Snap": true,

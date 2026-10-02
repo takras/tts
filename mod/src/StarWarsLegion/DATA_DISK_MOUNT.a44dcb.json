@@ -16,12 +16,18 @@
     "Nickname": "DATA DISK MOUNT",
     "Description": "",
     "GMNotes": "",
+    "AltLookAngle": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
     "ColorDiffuse": {
       "r": 1,
       "g": 1,
       "b": 1
     },
     "LayoutGroupSortIndex": 0,
+    "Value": 0,
     "Locked": true,
     "Grid": true,
     "Snap": true,
@@ -58,8 +64,7 @@
           "x": 0.0016045816,
           "y": 0.000240667971,
           "z": -8.07034e-7
-        },
-        "Tags": []
+        }
       }
     ]
   },

@@ -1,0 +1,54 @@
+{
+  "Object": {
+    "GUID": "a25349",
+    "Name": "Infinite_Bag",
+    "Transform": {
+      "posX": -43.4530869,
+      "posY": 0.9095751,
+      "posZ": 8.526615,
+      "rotX": 0.00000119765889,
+      "rotY": 359.993378,
+      "rotZ": 5.3888823e-7,
+      "scaleX": 1.1,
+      "scaleY": 1.1,
+      "scaleZ": 1.1
+    },
+    "Nickname": "Wound Tokens",
+    "Description": "",
+    "GMNotes": "",
+    "AltLookAngle": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "ColorDiffuse": {
+      "r": 1,
+      "g": 0,
+      "b": 0
+    },
+    "LayoutGroupSortIndex": 0,
+    "Value": 0,
+    "Locked": true,
+    "Grid": true,
+    "Snap": true,
+    "IgnoreFoW": false,
+    "MeasureMovement": false,
+    "DragSelectable": true,
+    "Autoraise": true,
+    "Sticky": true,
+    "Tooltip": true,
+    "GridProjection": false,
+    "HideWhenFaceDown": false,
+    "Hands": false,
+    "MaterialIndex": -1,
+    "MeshIndex": -1,
+    "LuaScript": "",
+    "LuaScriptState": "",
+    "XmlUI": "",
+    "ContainedObjects": []
+  },
+  "StatesPaths": {},
+  "ContainedObjectPaths": [
+    "Wound1.08b5d7.json"
+  ]
+}

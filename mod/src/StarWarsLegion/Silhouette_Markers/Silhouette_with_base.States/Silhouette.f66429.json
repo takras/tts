@@ -16,6 +16,11 @@
     "Nickname": "Silhouette",
     "Description": "Place me on top of existing minis to check their LOS",
     "GMNotes": "",
+    "AltLookAngle": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
     "ColorDiffuse": {
       "r": 0.471527338,
       "g": 0.7585914,
@@ -23,6 +28,7 @@
       "a": 0.392156869
     },
     "LayoutGroupSortIndex": 0,
+    "Value": 0,
     "Locked": false,
     "Grid": true,
     "Snap": true,

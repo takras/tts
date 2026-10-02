@@ -80,7 +80,7 @@ function getTokenScripts()
     end
   })
   _G.scriptBombCart = getObjectFromGUID("b497e1").getLuaScript()
-  getObjectFromGUID("094230").takeObject({
+  getObjectFromGUID("c06016").takeObject({
     callback_function = function(poi)
       _G.scriptPOIToken = poi.getLuaScript()
       destroyObject(poi)

@@ -1,0 +1,54 @@
+{
+  "Object": {
+    "GUID": "c06016",
+    "Name": "Infinite_Bag",
+    "Transform": {
+      "posX": 61.25475,
+      "posY": 0.895550132,
+      "posZ": 8.03784,
+      "rotX": -7.869321e-7,
+      "rotY": 0.00108932,
+      "rotZ": 4.23574278e-7,
+      "scaleX": 1.6499995,
+      "scaleY": 1.6499995,
+      "scaleZ": 1.6499995
+    },
+    "Nickname": "POI Tokens",
+    "Description": "",
+    "GMNotes": "",
+    "AltLookAngle": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "ColorDiffuse": {
+      "r": 0,
+      "g": 0.9776961,
+      "b": 1
+    },
+    "LayoutGroupSortIndex": 0,
+    "Value": 0,
+    "Locked": false,
+    "Grid": true,
+    "Snap": true,
+    "IgnoreFoW": false,
+    "MeasureMovement": false,
+    "DragSelectable": true,
+    "Autoraise": true,
+    "Sticky": true,
+    "Tooltip": true,
+    "GridProjection": false,
+    "HideWhenFaceDown": false,
+    "Hands": false,
+    "MaterialIndex": -1,
+    "MeshIndex": -1,
+    "LuaScript": "",
+    "LuaScriptState": "",
+    "XmlUI": "",
+    "ContainedObjects": []
+  },
+  "StatesPaths": {},
+  "ContainedObjectPaths": [
+    "POI_Token.761483.json"
+  ]
+}

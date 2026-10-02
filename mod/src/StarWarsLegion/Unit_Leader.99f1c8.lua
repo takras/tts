@@ -1,4 +1,4 @@
-﻿require('!/Cohesion')
+require('!/Cohesion')
 
 -- Model mini
 function onload()
@@ -209,9 +209,20 @@ function toggleSilhouettes()
   end
 end
 
--- Loops through all minis in the unit
--- Removes all attachments and destroys the first one
--- The silhouette should be the only attachment, so this should be safe to do
+-- Detaches every attachment from a mini, resetting and adding all attachments again to specified unit.
+function removeAttachmentsNamed(obj, name, includeUnnamed)
+  for _, attachment in ipairs(obj.removeAttachments()) do
+    if attachment ~= nil then
+      local attachmentName = attachment.getName()
+      if attachmentName == name or (includeUnnamed and attachmentName == "") then
+        attachment.destruct()
+      else
+        obj.addAttachment(attachment)
+      end
+    end
+  end
+end
+
 function clearSilhouette()
   for k, guid in pairs(miniGUIDs) do
     local obj = getObjectFromGUID(guid)
@@ -220,15 +231,78 @@ function clearSilhouette()
     if obj then
       -- silhouetteState is saved with the game, but the silhouette objects
       -- themselves are not: loading a save made with silhouettes up leaves the
-      -- state true with nothing attached, and removeAttachments() returns an
-      -- empty list. Destructing that nil crashed the script.
-      local silToDestroy = obj.removeAttachments()[1]
-      if silToDestroy then
-        silToDestroy.destruct()
-      end
+      -- state true with nothing attached. removeAttachmentsNamed iterates
+      -- whatever removeAttachments() actually returns (possibly empty)
+      -- instead of indexing it directly, so this is safe either way.
+      removeAttachmentsNamed(obj, "Silhouette", true)
     end
   end
   silhouetteState = false
+end
+
+-- HEIGHT INDICATOR ----------------------------------------------------------
+-- Cycles off -> height 1 -> height 2 -> back to "off".
+-- Height 1: 6 inches
+-- Heoght 2: 12 inches
+
+function getHeightIndicatorLevel()
+  return heightState or 0
+end
+
+function cycleHeightIndicator()
+  setHeightIndicator((getHeightIndicatorLevel() + 1) % 3)
+  return getHeightIndicatorLevel()
+end
+
+function setHeightIndicator(level)
+  clearHeightIndicator()
+  heightState = level
+  if level == 0 then
+    return
+  end
+  for _, guid in pairs(miniGUIDs) do
+    local obj = getObjectFromGUID(guid)
+    if obj then
+      local bounds = obj.getBounds()
+      local pos = obj.getPosition()
+      local bottom = bounds.center.y - bounds.size.y / 2
+      for segment = 1, level do
+        spawnHeightSegment(obj, {pos.x, bottom + (segment - 1) * 6, pos.z}, segment)
+      end
+    end
+  end
+end
+
+function clearHeightIndicator()
+  for _, guid in pairs(miniGUIDs) do
+    local obj = getObjectFromGUID(guid)
+    if obj then
+      removeAttachmentsNamed(obj, "Height Indicator", false)
+    end
+  end
+  heightState = 0
+end
+
+function spawnHeightSegment(obj, pos, segment)
+  local tints = {
+    {0.2, 0.9, 0.3, 0.5}, -- height 1
+    {1.0, 0.6, 0.1, 0.5}, -- height 2
+  }
+  local pillar = spawnObject({
+    type = "Custom_AssetBundle",
+    position = pos,
+    rotation = {0, obj.getRotation().y, 0},
+    scale = {0.12, 6, 0.12}
+  })
+  pillar.setCustomObject({
+    -- Re-use silhouette
+    assetbundle = "https://steamusercontent-a.akamaihd.net/ugc/5063766435505471684/D97103C9FFB76016DDF9CE66A7622BDB3E810160/",
+    material = 3
+  })
+  pillar.setName("Height Indicator")
+  pillar.setColorTint(tints[segment] or tints[2])
+  obj.addAttachment(pillar)
+  return pillar
 end
 
 -- Loops through all minis in the unit
@@ -290,6 +364,7 @@ function spawnSilhouette(obj, pos, rot)
       material = 3
   })
   silhouette.setColorTint({0.47,0.76,0.8,0.3})
+  silhouette.setName("Silhouette")
   if obj ~= nil then
     obj.addAttachment(silhouette)
   end
