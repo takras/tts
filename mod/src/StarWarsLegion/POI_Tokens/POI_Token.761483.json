@@ -1,27 +1,36 @@
 {
   "Object": {
     "GUID": "761483",
-    "Name": "Custom_AssetBundle",
+    "Name": "Custom_Token",
     "Transform": {
-      "posX": 57.3673363,
-      "posY": 1.14261746,
-      "posZ": 10.8900785,
-      "rotX": 0,
-      "rotY": 0,
-      "rotZ": 0,
-      "scaleX": 1,
+      "posX": 51.4452057,
+      "posY": 4.44558859,
+      "posZ": 19.5423756,
+      "rotX": 358.903046,
+      "rotY": 89.99401,
+      "rotZ": 359.745117,
+      "scaleX": 0.5333335,
       "scaleY": 1,
-      "scaleZ": 1
+      "scaleZ": 0.5333335
     },
     "Nickname": "POI Token",
     "Description": "Token",
     "GMNotes": "",
+    "AltLookAngle": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
     "ColorDiffuse": {
       "r": 1,
-      "g": 0,
-      "b": 0
+      "g": 1,
+      "b": 1
     },
+    "Tags": [
+      "POI"
+    ],
     "LayoutGroupSortIndex": 0,
+    "Value": 0,
     "Locked": false,
     "Grid": true,
     "Snap": true,
@@ -34,15 +43,22 @@
     "GridProjection": false,
     "HideWhenFaceDown": false,
     "Hands": false,
-    "CustomAssetBundle": {
-      "AssetBundleURL": "https://steamusercontent-a.akamaihd.net/ugc/2482129948495931625/A14C0E047A0C7C8D12B96B34A16D2DAAA3A5E9E3/",
-      "material": 3,
-      "type": 0,
-      "LoopingEffectIndex": 0
+    "CustomImage": {
+      "ImageURL": "https://steamusercontent-a.akamaihd.net/ugc/11661689877099088749/D1C4F470EFAF8FA8904FE0682EA7B43CE208CD3D/",
+      "ImageSecondaryURL": "",
+      "ImageScalar": 1,
+      "WidthScale": 0,
+      "CustomToken": {
+        "Thickness": 0.2,
+        "MergeDistancePixels": 15,
+        "StandUp": false,
+        "Stackable": false
+      }
     },
     "LuaScript": "#include ./POI_Token.761483.lua",
     "LuaScriptState": "",
     "XmlUI": "",
     "States": {}
-  }
+  },
+  "StatesPaths": {}
 }

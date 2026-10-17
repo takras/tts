@@ -1,0 +1,69 @@
+{
+  "Object": {
+    "GUID": "92b2ca",
+    "Name": "Custom_Token",
+    "Transform": {
+      "posX": -45.2303467,
+      "posY": 2.27437615,
+      "posZ": 1.73803473,
+      "rotX": 1.7965349,
+      "rotY": 180.032349,
+      "rotZ": 2.04632449,
+      "scaleX": 0.250000417,
+      "scaleY": 1,
+      "scaleZ": 0.250000417
+    },
+    "Nickname": "Suppression1",
+    "Description": "",
+    "GMNotes": "",
+    "AltLookAngle": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "ColorDiffuse": {
+      "r": 1,
+      "g": 1,
+      "b": 1
+    },
+    "LayoutGroupSortIndex": 0,
+    "Value": 0,
+    "Locked": false,
+    "Grid": true,
+    "Snap": true,
+    "IgnoreFoW": false,
+    "MeasureMovement": false,
+    "DragSelectable": true,
+    "Autoraise": true,
+    "Sticky": true,
+    "Tooltip": true,
+    "GridProjection": false,
+    "HideWhenFaceDown": false,
+    "Hands": false,
+    "CustomImage": {
+      "ImageURL": "https://steamusercontent-a.akamaihd.net/ugc/15035469893812179958/93CB5C6ED705BAAD6F56902635E9C4DC528EC1ED/",
+      "ImageSecondaryURL": "",
+      "ImageScalar": 1,
+      "WidthScale": 0,
+      "CustomToken": {
+        "Thickness": 0.1,
+        "MergeDistancePixels": 15,
+        "StandUp": false,
+        "Stackable": false
+      }
+    },
+    "LuaScript": "",
+    "LuaScriptState": "",
+    "XmlUI": "",
+    "States": {}
+  },
+  "StatesPaths": {
+    "1": "Suppression8.cfdea6.json",
+    "2": "Suppression2.06a54d.json",
+    "3": "Suppression3.f85dfa.json",
+    "4": "Suppression4.c354ad.json",
+    "5": "Suppression5.6d8ace.json",
+    "6": "Suppression6.0ca937.json",
+    "7": "Suppression7.9f974a.json"
+  }
+}

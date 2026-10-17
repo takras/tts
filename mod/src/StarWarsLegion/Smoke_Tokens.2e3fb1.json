@@ -1,0 +1,54 @@
+{
+  "Object": {
+    "GUID": "2e3fb1",
+    "Name": "Infinite_Bag",
+    "Transform": {
+      "posX": -46.04122,
+      "posY": 0.90745014,
+      "posZ": -0.8724339,
+      "rotX": -8.949516e-7,
+      "rotY": 0.0145532209,
+      "rotZ": 4.48595863e-8,
+      "scaleX": 0.950000048,
+      "scaleY": 0.950000048,
+      "scaleZ": 0.950000048
+    },
+    "Nickname": "Smoke Tokens",
+    "Description": "",
+    "GMNotes": "",
+    "AltLookAngle": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "ColorDiffuse": {
+      "r": 0.3058885,
+      "g": 0.372555166,
+      "b": 1
+    },
+    "LayoutGroupSortIndex": 0,
+    "Value": 0,
+    "Locked": true,
+    "Grid": true,
+    "Snap": true,
+    "IgnoreFoW": false,
+    "MeasureMovement": false,
+    "DragSelectable": true,
+    "Autoraise": true,
+    "Sticky": true,
+    "Tooltip": true,
+    "GridProjection": false,
+    "HideWhenFaceDown": false,
+    "Hands": false,
+    "MaterialIndex": -1,
+    "MeshIndex": -1,
+    "LuaScript": "",
+    "LuaScriptState": "",
+    "XmlUI": "",
+    "ContainedObjects": []
+  },
+  "StatesPaths": {},
+  "ContainedObjectPaths": [
+    "Smoke_Token.45df41.json"
+  ]
+}

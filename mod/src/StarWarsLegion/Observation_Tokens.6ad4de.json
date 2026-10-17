@@ -1,0 +1,54 @@
+{
+  "Object": {
+    "GUID": "6ad4de",
+    "Name": "Infinite_Bag",
+    "Transform": {
+      "posX": -45.97063,
+      "posY": 0.90745,
+      "posZ": -3.10194659,
+      "rotX": -2.84398368e-7,
+      "rotY": 0.004029259,
+      "rotZ": 5.89921058e-7,
+      "scaleX": 0.950000048,
+      "scaleY": 0.950000048,
+      "scaleZ": 0.950000048
+    },
+    "Nickname": "Observation Tokens",
+    "Description": "",
+    "GMNotes": "",
+    "AltLookAngle": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "ColorDiffuse": {
+      "r": 0.277003139,
+      "g": 0.2750694,
+      "b": 0.0168903917
+    },
+    "LayoutGroupSortIndex": 0,
+    "Value": 0,
+    "Locked": true,
+    "Grid": true,
+    "Snap": true,
+    "IgnoreFoW": false,
+    "MeasureMovement": false,
+    "DragSelectable": true,
+    "Autoraise": true,
+    "Sticky": true,
+    "Tooltip": true,
+    "GridProjection": false,
+    "HideWhenFaceDown": false,
+    "Hands": false,
+    "MaterialIndex": -1,
+    "MeshIndex": -1,
+    "LuaScript": "",
+    "LuaScriptState": "",
+    "XmlUI": "",
+    "ContainedObjects": []
+  },
+  "StatesPaths": {},
+  "ContainedObjectPaths": [
+    "Custom_Token.341bb9.json"
+  ]
+}

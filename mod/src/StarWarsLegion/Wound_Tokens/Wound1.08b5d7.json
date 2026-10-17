@@ -1,0 +1,69 @@
+{
+  "Object": {
+    "GUID": "08b5d7",
+    "Name": "Custom_Token",
+    "Transform": {
+      "posX": -43.1594543,
+      "posY": 2.68436646,
+      "posZ": 3.091161,
+      "rotX": 1.99239969,
+      "rotY": 179.99147,
+      "rotZ": 358.816132,
+      "scaleX": 0.250000417,
+      "scaleY": 1,
+      "scaleZ": 0.250000417
+    },
+    "Nickname": "Wound1",
+    "Description": "",
+    "GMNotes": "",
+    "AltLookAngle": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "ColorDiffuse": {
+      "r": 1,
+      "g": 1,
+      "b": 1
+    },
+    "LayoutGroupSortIndex": 0,
+    "Value": 0,
+    "Locked": false,
+    "Grid": true,
+    "Snap": true,
+    "IgnoreFoW": false,
+    "MeasureMovement": false,
+    "DragSelectable": true,
+    "Autoraise": true,
+    "Sticky": true,
+    "Tooltip": true,
+    "GridProjection": false,
+    "HideWhenFaceDown": false,
+    "Hands": false,
+    "CustomImage": {
+      "ImageURL": "https://steamusercontent-a.akamaihd.net/ugc/18344200444989879921/3F36594EB5BC51E2021956978C55744C65ABCAC8/",
+      "ImageSecondaryURL": "",
+      "ImageScalar": 1,
+      "WidthScale": 0,
+      "CustomToken": {
+        "Thickness": 0.1,
+        "MergeDistancePixels": 15,
+        "StandUp": false,
+        "Stackable": false
+      }
+    },
+    "LuaScript": "",
+    "LuaScriptState": "",
+    "XmlUI": "",
+    "States": {}
+  },
+  "StatesPaths": {
+    "2": "Wound2.4c1e36.json",
+    "3": "Wound3.dfd1db.json",
+    "4": "Wound4.f32cdf.json",
+    "5": "Wound5.56275e.json",
+    "6": "Wound6.2ffa62.json",
+    "7": "Wound7.e032e6.json",
+    "8": "Wound8.799ba3.json"
+  }
+}

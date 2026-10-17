@@ -16,12 +16,18 @@
     "Nickname": "Unit ID Token",
     "Description": "Right Click > States to access different Unit ID",
     "GMNotes": "",
+    "AltLookAngle": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
     "ColorDiffuse": {
       "r": 1,
       "g": 1,
       "b": 1
     },
     "LayoutGroupSortIndex": 0,
+    "Value": 0,
     "Locked": false,
     "Grid": true,
     "Snap": true,
@@ -35,7 +41,7 @@
     "HideWhenFaceDown": false,
     "Hands": false,
     "CustomAssetbundle": {
-      "AssetbundleURL": "http://cloud-3.steamusercontent.com/ugc/1803106576260862460/837C751C189BE0B63088F8BEDEEFE845D66F64E6/",
+      "AssetbundleURL": "https://steamusercontent-a.akamaihd.net/ugc/1803106576260862460/837C751C189BE0B63088F8BEDEEFE845D66F64E6/",
       "AssetbundleSecondaryURL": "",
       "MaterialIndex": 0,
       "TypeIndex": 0,

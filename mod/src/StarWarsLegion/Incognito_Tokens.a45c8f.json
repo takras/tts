@@ -1,0 +1,54 @@
+{
+  "Object": {
+    "GUID": "a45c8f",
+    "Name": "Infinite_Bag",
+    "Transform": {
+      "posX": -43.88342,
+      "posY": 0.907875061,
+      "posZ": -0.8765906,
+      "rotX": 2.66233e-7,
+      "rotY": 0.014550373,
+      "rotZ": -4.5365936e-10,
+      "scaleX": 0.925000131,
+      "scaleY": 0.925000131,
+      "scaleZ": 0.925000131
+    },
+    "Nickname": "Incognito Tokens",
+    "Description": "",
+    "GMNotes": "",
+    "AltLookAngle": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "ColorDiffuse": {
+      "r": 0.3058885,
+      "g": 0.372555166,
+      "b": 1
+    },
+    "LayoutGroupSortIndex": 0,
+    "Value": 0,
+    "Locked": true,
+    "Grid": true,
+    "Snap": true,
+    "IgnoreFoW": false,
+    "MeasureMovement": false,
+    "DragSelectable": true,
+    "Autoraise": true,
+    "Sticky": true,
+    "Tooltip": true,
+    "GridProjection": false,
+    "HideWhenFaceDown": false,
+    "Hands": false,
+    "MaterialIndex": -1,
+    "MeshIndex": -1,
+    "LuaScript": "",
+    "LuaScriptState": "",
+    "XmlUI": "",
+    "ContainedObjects": []
+  },
+  "StatesPaths": {},
+  "ContainedObjectPaths": [
+    "Incognito.88c605.json"
+  ]
+}

@@ -9,19 +9,25 @@
       "rotX": 90,
       "rotY": 90,
       "rotZ": 0,
-      "scaleX": 0.7,
-      "scaleY": 0.7,
-      "scaleZ": 0.7
+      "scaleX": 0,
+      "scaleY": 0,
+      "scaleZ": 0
     },
     "Nickname": "Blue Clock",
     "Description": "",
     "GMNotes": "",
+    "AltLookAngle": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
     "ColorDiffuse": {
       "r": 0,
-      "g": 0.3112358,
+      "g": 0.3112354,
       "b": 0.5372549
     },
     "LayoutGroupSortIndex": 0,
+    "Value": 0,
     "Locked": true,
     "Grid": true,
     "Snap": true,
@@ -40,7 +46,7 @@
       "Paused": true
     },
     "LuaScript": "#include ./Blue_Clock.4f823a.lua",
-    "LuaScriptState": "",
+    "LuaScriptState": "#include ./Blue_Clock.4f823a.state.json",
     "XmlUI": ""
   },
   "StatesPaths": {}

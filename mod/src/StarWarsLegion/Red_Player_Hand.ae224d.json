@@ -16,6 +16,11 @@
     "Nickname": "Red Player Hand",
     "Description": "",
     "GMNotes": "",
+    "AltLookAngle": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
     "ColorDiffuse": {
       "r": 0.856,
       "g": 0.09999997,
@@ -23,6 +28,7 @@
       "a": 0
     },
     "LayoutGroupSortIndex": 0,
+    "Value": 0,
     "Locked": true,
     "Grid": false,
     "Snap": true,

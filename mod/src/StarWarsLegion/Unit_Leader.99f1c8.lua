@@ -1,4 +1,4 @@
-﻿require('!/Cohesion')
+require('!/Cohesion')
 
 -- Model mini
 function onload()
@@ -53,6 +53,34 @@ function calculateButtonZOffset(baseDiameter)
    return ((baseDiameter * 0.5) + 0.1)
 end
 
+-- Oblong bases (long, snail) are longer than they are wide, so a Z offset
+-- derived from baseRadius puts the SIL and LCK buttons inside the model. The
+-- real depth can only be read from the mesh, which is not loaded yet when the
+-- buttons are created, so re-place them once it is in. Round bases are left
+-- alone, their radius is already correct.
+function scheduleOblongButtonFix()
+  if oblongButtonFixScheduled then return end
+  if not (unitData and (unitData.baseSize == "long" or unitData.baseSize == "snail")) then
+    return
+  end
+  oblongButtonFixScheduled = true
+  Wait.time(function()
+    if self == nil then return end
+    local okB, bounds = pcall(function() return self.getBoundsNormalized() end)
+    local okS, scale = pcall(function() return self.getScale() end)
+    if not (okB and okS and bounds and scale and scale.z ~= 0) then return end
+    local half = (bounds.size.z / scale.z) * 0.5 + 0.15
+    for _, btn in ipairs(self.getButtons() or {}) do
+      if (btn.label == "SIL" or btn.label == "LCK") and (btn.position.z or 0) < half then
+        self.editButton({
+          index = btn.index,
+          position = {btn.position.x, btn.position.y, half},
+        })
+      end
+    end
+  end, 3)
+end
+
 function addSilhouetteButton()
   local gameData = getObjectFromGUID(Global.getVar("gameDataGUID"))
   local btnTint = gameData.getTable("battlefieldTint")
@@ -70,6 +98,7 @@ function addSilhouetteButton()
     font_color= {1, 1, 1, 100}
   }
   self.createButton(btnData)
+  scheduleOblongButtonFix()
 end
 
 function addLockButton()
@@ -90,6 +119,7 @@ function addLockButton()
         font_color= {1, 1, 1, 100}
     }
     self.createButton(lockBtnData)
+    scheduleOblongButtonFix()
 end
 
 function updateLockBtnColor()
@@ -179,20 +209,95 @@ function toggleSilhouettes()
   end
 end
 
--- Loops through all minis in the unit
--- Removes all attachments and destroys the first one
--- The silhouette should be the only attachment, so this should be safe to do
+-- Detaches every attachment from a mini, resetting and adding all attachments again to specified unit.
+function removeAttachmentsNamed(obj, name, includeUnnamed)
+  for _, attachment in ipairs(obj.removeAttachments()) do
+    if attachment ~= nil then
+      local attachmentName = attachment.getName()
+      if attachmentName == name or (includeUnnamed and attachmentName == "") then
+        attachment.destruct()
+      else
+        obj.addAttachment(attachment)
+      end
+    end
+  end
+end
+
 function clearSilhouette()
   for k, guid in pairs(miniGUIDs) do
     local obj = getObjectFromGUID(guid)
 
     -- Guard against players who delete their minis!
     if obj then
-      local silToDestroy = obj.removeAttachments()[1]
-      silToDestroy.destruct()
+      removeAttachmentsNamed(obj, "Silhouette", true)
     end
   end
   silhouetteState = false
+end
+
+-- HEIGHT INDICATOR ----------------------------------------------------------
+-- Cycles off -> height 1 -> height 2 -> back to "off".
+-- Height 1: 6 inches
+-- Heoght 2: 12 inches
+
+function getHeightIndicatorLevel()
+  return heightState or 0
+end
+
+function cycleHeightIndicator()
+  setHeightIndicator((getHeightIndicatorLevel() + 1) % 3)
+  return getHeightIndicatorLevel()
+end
+
+function setHeightIndicator(level)
+  clearHeightIndicator()
+  heightState = level
+  if level == 0 then
+    return
+  end
+  for _, guid in pairs(miniGUIDs) do
+    local obj = getObjectFromGUID(guid)
+    if obj then
+      local bounds = obj.getBounds()
+      local pos = obj.getPosition()
+      local bottom = bounds.center.y - bounds.size.y / 2
+      for segment = 1, level do
+        spawnHeightSegment(obj, {pos.x, bottom + (segment - 1) * 6, pos.z}, segment)
+      end
+    end
+  end
+end
+
+function clearHeightIndicator()
+  for _, guid in pairs(miniGUIDs) do
+    local obj = getObjectFromGUID(guid)
+    if obj then
+      removeAttachmentsNamed(obj, "Height Indicator", false)
+    end
+  end
+  heightState = 0
+end
+
+function spawnHeightSegment(obj, pos, segment)
+  local tints = {
+    {0.2, 0.9, 0.3, 0.5}, -- height 1
+    {1.0, 0.6, 0.1, 0.5}, -- height 2
+  }
+  local pillar = spawnObject({
+    type = "Custom_AssetBundle",
+    position = pos,
+    rotation = {0, obj.getRotation().y, 0},
+    scale = {0.12, 6, 0.12}
+  })
+  pillar.setCustomObject({
+    -- Re-use silhouette
+    assetbundle = "https://steamusercontent-a.akamaihd.net/ugc/5063766435505471684/D97103C9FFB76016DDF9CE66A7622BDB3E810160/",
+    material = 3
+  })
+  pillar.setName("Height Indicator")
+  pillar.setColorTint(tints[segment] or tints[2])
+  obj.addAttachment(pillar)
+  return pillar
 end
 
 -- Loops through all minis in the unit
@@ -217,16 +322,16 @@ function spawnSilhouette(obj, pos, rot)
   local scale = globals.baseRadius[unitData.baseSize]
   local height = 1.0
   local offset = 0.0
-  local silhouetteData = "http://cloud-3.steamusercontent.com/ugc/5063766435505471684/D97103C9FFB76016DDF9CE66A7622BDB3E810160/"
+  local silhouetteData = "https://steamusercontent-a.akamaihd.net/ugc/5063766435505471684/D97103C9FFB76016DDF9CE66A7622BDB3E810160/"
   if silhType == "custom" then
     height = silhHeight
     offset = silhOffset
     if unitData.baseSize == "snail" then
-      silhouetteData = "http://cloud-3.steamusercontent.com/ugc/5063766435505471854/AE2D411CFBF4D88321CAD0D75961CBF0512D62E4/"
+      silhouetteData = "https://steamusercontent-a.akamaihd.net/ugc/5063766435505471854/AE2D411CFBF4D88321CAD0D75961CBF0512D62E4/"
       scale = 1.0
     end
     if unitData.baseSize == "long" then
-      silhouetteData = "http://cloud-3.steamusercontent.com/ugc/5063766435505471800/DF511A83E913EBA164F74E20BA239AE286458D91/"
+      silhouetteData = "https://steamusercontent-a.akamaihd.net/ugc/5063766435505471800/DF511A83E913EBA164F74E20BA239AE286458D91/"
       scale = 1.0
     end
   else    
@@ -254,6 +359,7 @@ function spawnSilhouette(obj, pos, rot)
       material = 3
   })
   silhouette.setColorTint({0.47,0.76,0.8,0.3})
+  silhouette.setName("Silhouette")
   if obj ~= nil then
     obj.addAttachment(silhouette)
   end

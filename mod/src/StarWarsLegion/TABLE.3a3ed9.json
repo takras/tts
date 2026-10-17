@@ -16,12 +16,21 @@
     "Nickname": "TABLE",
     "Description": "",
     "GMNotes": "",
+    "AltLookAngle": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
     "ColorDiffuse": {
       "r": 1,
       "g": 1,
       "b": 1
     },
+    "Tags": [
+      "Table"
+    ],
     "LayoutGroupSortIndex": 0,
+    "Value": 0,
     "Locked": true,
     "Grid": true,
     "Snap": true,
@@ -43,8 +52,7 @@
     },
     "LuaScript": "#include ./TABLE.3a3ed9.lua",
     "LuaScriptState": "",
-    "XmlUI": "",
-    "Tags": ["Table"]
+    "XmlUI": ""
   },
   "StatesPaths": {}
 }

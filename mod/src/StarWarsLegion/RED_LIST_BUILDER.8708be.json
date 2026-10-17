@@ -6,9 +6,9 @@
       "posX": -37.78033,
       "posY": 0.9409819,
       "posZ": -22.5352726,
-      "rotX": 0.0136225652,
+      "rotX": 0.0136225875,
       "rotY": 359.982422,
-      "rotZ": 0.00042606963,
+      "rotZ": 0.0004260701,
       "scaleX": 1,
       "scaleY": 1,
       "scaleZ": 1
@@ -16,12 +16,18 @@
     "Nickname": "RED LIST BUILDER",
     "Description": "",
     "GMNotes": "",
+    "AltLookAngle": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
     "ColorDiffuse": {
       "r": 1,
       "g": 1,
       "b": 1
     },
     "LayoutGroupSortIndex": 0,
+    "Value": 0,
     "Locked": true,
     "Grid": true,
     "Snap": true,
@@ -35,8 +41,8 @@
     "HideWhenFaceDown": false,
     "Hands": false,
     "CustomMesh": {
-      "MeshURL": "http://cloud-3.steamusercontent.com/ugc/786359883314441144/EDAA04D8A056819B65CEDA236559045E235193EC/",
-      "DiffuseURL": "http://cloud-3.steamusercontent.com/ugc/785234780862648292/75769189AF6176C1E0A9BEDC028D10922FA36337/",
+      "MeshURL": "https://steamusercontent-a.akamaihd.net/ugc/786359883314441144/EDAA04D8A056819B65CEDA236559045E235193EC/",
+      "DiffuseURL": "https://steamusercontent-a.akamaihd.net/ugc/785234780862648292/75769189AF6176C1E0A9BEDC028D10922FA36337/",
       "NormalURL": "",
       "ColliderURL": "",
       "Convex": true,

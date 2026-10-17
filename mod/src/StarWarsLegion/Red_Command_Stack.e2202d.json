@@ -16,12 +16,18 @@
     "Nickname": "Red Command Stack",
     "Description": "",
     "GMNotes": "",
+    "AltLookAngle": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
     "ColorDiffuse": {
-      "r": 0.254899353,
-      "g": 0.345095456,
+      "r": 0.2548986,
+      "g": 0.345094681,
       "b": 0.4470588
     },
     "LayoutGroupSortIndex": 0,
+    "Value": 0,
     "Locked": true,
     "Grid": true,
     "Snap": true,
@@ -38,10 +44,10 @@
     "MeshIndex": -1,
     "Number": 0,
     "CustomMesh": {
-      "MeshURL": "http://cloud-3.steamusercontent.com/ugc/786359883314445226/CE917AD43910DCEE7E2793A3108E7FE4BEBB1515/",
-      "DiffuseURL": "http://cloud-3.steamusercontent.com/ugc/786359883314445332/4EADDF10167F8C3FFD584B5B7DF8BDBEBB4271D1/",
+      "MeshURL": "https://steamusercontent-a.akamaihd.net/ugc/786359883314445226/CE917AD43910DCEE7E2793A3108E7FE4BEBB1515/",
+      "DiffuseURL": "https://steamusercontent-a.akamaihd.net/ugc/786359883314445332/4EADDF10167F8C3FFD584B5B7DF8BDBEBB4271D1/",
       "NormalURL": "",
-      "ColliderURL": "http://cloud-3.steamusercontent.com/ugc/786359883314445226/CE917AD43910DCEE7E2793A3108E7FE4BEBB1515/",
+      "ColliderURL": "https://steamusercontent-a.akamaihd.net/ugc/786359883314445226/CE917AD43910DCEE7E2793A3108E7FE4BEBB1515/",
       "Convex": true,
       "MaterialIndex": 3,
       "TypeIndex": 6,

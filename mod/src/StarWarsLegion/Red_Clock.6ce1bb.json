@@ -9,19 +9,25 @@
       "rotX": 90,
       "rotY": 90,
       "rotZ": 0,
-      "scaleX": 0.7,
-      "scaleY": 0.7,
-      "scaleZ": 0.7
+      "scaleX": 0,
+      "scaleY": 0,
+      "scaleZ": 0
     },
     "Nickname": "Red Clock",
     "Description": "",
     "GMNotes": "",
+    "AltLookAngle": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
     "ColorDiffuse": {
       "r": 0.501415431,
       "g": 0,
       "b": 0
     },
     "LayoutGroupSortIndex": 0,
+    "Value": 0,
     "Locked": true,
     "Grid": true,
     "Snap": true,
@@ -40,7 +46,7 @@
       "Paused": true
     },
     "LuaScript": "#include ./Red_Clock.6ce1bb.lua",
-    "LuaScriptState": "",
+    "LuaScriptState": "#include ./Red_Clock.6ce1bb.state.json",
     "XmlUI": ""
   },
   "StatesPaths": {}

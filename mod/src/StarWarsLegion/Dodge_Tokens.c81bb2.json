@@ -1,0 +1,54 @@
+{
+  "Object": {
+    "GUID": "c81bb2",
+    "Name": "Infinite_Bag",
+    "Transform": {
+      "posX": -43.81958,
+      "posY": 0.90745,
+      "posZ": -9.53803,
+      "rotX": -8.483342e-7,
+      "rotY": 0.0101609156,
+      "rotZ": 2.7062498e-7,
+      "scaleX": 0.9500001,
+      "scaleY": 0.9500001,
+      "scaleZ": 0.9500001
+    },
+    "Nickname": "Dodge Tokens",
+    "Description": "",
+    "GMNotes": "",
+    "AltLookAngle": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "ColorDiffuse": {
+      "r": 0.4632848,
+      "g": 1,
+      "b": 0.305881977
+    },
+    "LayoutGroupSortIndex": 0,
+    "Value": 0,
+    "Locked": true,
+    "Grid": true,
+    "Snap": true,
+    "IgnoreFoW": false,
+    "MeasureMovement": false,
+    "DragSelectable": true,
+    "Autoraise": true,
+    "Sticky": true,
+    "Tooltip": true,
+    "GridProjection": false,
+    "HideWhenFaceDown": false,
+    "Hands": false,
+    "MaterialIndex": -1,
+    "MeshIndex": -1,
+    "LuaScript": "",
+    "LuaScriptState": "",
+    "XmlUI": "",
+    "ContainedObjects": []
+  },
+  "StatesPaths": {},
+  "ContainedObjectPaths": [
+    "Custom_Token.acb2b6.json"
+  ]
+}

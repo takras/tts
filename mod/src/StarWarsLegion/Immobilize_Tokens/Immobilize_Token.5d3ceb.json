@@ -7,21 +7,27 @@
       "posY": 1.16699541,
       "posZ": -14.2836924,
       "rotX": -0.000004623577,
-      "rotY": 300.0129,
+      "rotY": 0,
       "rotZ": -0.00000110528117,
-      "scaleX": 0.750000238,
-      "scaleY": 0.750000238,
-      "scaleZ": 0.750000238
+      "scaleX": 0.4651,
+      "scaleY": 0.749,
+      "scaleZ": 0.4651
     },
     "Nickname": "Immobilize Token",
     "Description": "",
     "GMNotes": "",
+    "AltLookAngle": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
     "ColorDiffuse": {
       "r": 1,
       "g": 1,
       "b": 1
     },
     "LayoutGroupSortIndex": 0,
+    "Value": 0,
     "Locked": false,
     "Grid": true,
     "Snap": true,
@@ -35,8 +41,8 @@
     "HideWhenFaceDown": false,
     "Hands": false,
     "CustomMesh": {
-      "MeshURL": "http://cloud-3.steamusercontent.com/ugc/786359883314442992/DD893F407D50F2D029305A2F181989F90E3FA46A/",
-      "DiffuseURL": "http://cloud-3.steamusercontent.com/ugc/786359883314446126/CCD2483A716B81931D26829BF205D6C0CB0196CD/",
+      "MeshURL": "https://raw.githubusercontent.com/ironsquadronfr-hub/swl-assets/main/assets/immobilize_v2.obj",
+      "DiffuseURL": "https://raw.githubusercontent.com/ironsquadronfr-hub/swl-assets/main/assets/immobilize_v2.jpg",
       "NormalURL": "",
       "ColliderURL": "",
       "Convex": true,
@@ -56,7 +62,10 @@
     },
     "LuaScript": "",
     "LuaScriptState": "",
-    "XmlUI": ""
+    "XmlUI": "",
+    "States": {}
   },
-  "StatesPaths": {}
+  "StatesPaths": {
+    "2": "Immobilize_Token.e1a206.json"
+  }
 }

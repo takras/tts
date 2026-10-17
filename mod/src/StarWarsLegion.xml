@@ -1,2 +1,152 @@
 <!-- #include !/ui/Menu -->
+<!-- The floating menu spawned in the bottom right corner-->
+
+<!-- Height should be NUM_BUTTONS * 58-->
+<VerticalLayout
+  height="232"
+  id="legionFloatingMenu"
+  offsetXY="-6 60"
+  rectAlignment="LowerRight"
+  spacing="6"
+  width="52"
+>
+  <Button fontSize="10" onClick="toggleWelcomeDialog">Welcome</Button>
+  <Button fontSize="10" onClick="toggleChessClockUI" tooltip="Toggle using chess clocks this game">Chess Clocks</Button>
+  <Button fontSize="10" interactable="false">-</Button>
+  <Button fontSize="10" interactable="false">-</Button>
+</VerticalLayout>
+
+<!-- #include !/ui/Welcome -->
+<!-- Welcome/Help/Changelog Dialog -->
+
+<Panel
+  active="false"
+  allowDragging="true"
+  color="#40404080"
+  height="300"
+  id="welcomeDialog"
+  outline="#202020"
+  rectAlignment="CenterCenter"
+  returnToOriginalPositionWhenReleased="false"
+  width="500"
+>
+  <Panel 
+    color="#202020"
+    height="30"
+    padding="5"
+    rectAlignment="UpperCenter"
+    width="500"
+  >
+    <Text color="#ffffff">Star Wars Legion for TTS</Text>
+  </Panel>
+  <Panel
+    height="30"
+    width="30"
+    rectAlignment="UpperRight"
+    padding="2"
+  >
+    <Button onClick="toggleWelcomeDialog">X</Button>
+  </Panel>
+  <Panel
+    height="240"
+    padding="5"
+    width="500"
+  >
+    <VerticalScrollView id="welcomeTab1" active="true" color="40404080">
+      <VerticalLayout padding="5">
+        <Text alignment="UpperLeft" color="#ffffff" fontSize="12">
+          <!--Welcome to Star Wars: Legion for TTS, <b>v8.0.0</b>.-->
+          Welcome to Star Wars: Legion for TTS, <b>v8.0.21-beta</b>.
+
+          This is a <b>beta release</b> <textcolor color="#f03333"><b></b></textcolor>.
+
+          To access the stable version of the mod visit <i>https://go.swlegion.dev/mod</i>.
+
+          <b>CHANGELOG</b>
+          (Since last <i>Beta</i>)
+          <!--(Since last <i>Stable</i>)-->
+          - Add: Han and Chewie
+          - Add: Mounted Jedi Generals
+          - Fix: Custom Mando Command Cards
+          - Add: Jedi Knight General and Jedi Knight
+          - Add: Super Tactical Command Droids
+          - Add: Revealed General Grievous, Wheelbike Warlord Card
+          - Add: POI tokens snap to the POI guide circles (Maps menu: Toggle POI Snap)
+          - Add: Height 1 / height 2 indicator (HGT button on the order token, or hotkey)
+          - Add: Leader mini dropped just outside the battlefield snap to touch the edge
+          - Add: Minis stay close to table surface while dragged off the battlefield
+          - Add: Minis stand back up if they tip over after a move or collision
+          - Add: Config menu on the computer, with one-click Legion Helper card art loading
+          - Add: Side loaded card art retroactively re-skins matching units/cards already on the table
+          - Add: Legion Helper: Active Army sends only the cards on the table to the server and loads just their art
+          - Fix: Side loading card art no longer freezes the game for several seconds
+        </Text>
+      </VerticalLayout>
+    </VerticalScrollView>
+    <VerticalLayout id="welcomeTab3" active="false" padding="5 5 5 5" spacing="5" childForceExpandHeight="false">
+      <Text alignment="UpperLeft" color="#ffffff" fontSize="12" preferredHeight="60">Add your own cards - units, upgrades and command cards - from a file in the mod's cards.json format. Paste its URL below, press Load, then Create Army on your LIST BUILDER panel. They are lost when the mod reloads, and the file must host its own images and models.</Text>
+      <InputField
+        minHeight="40"
+        preferredHeight="40"
+        placeholder="URL of a cards.json file"
+        onValueChanged="sideLoadUrlChanged"></InputField>
+      <Button minHeight="40" preferredHeight="40" onClick="experimentalSideLoad">Load</Button>
+      <Text alignment="UpperLeft" color="#ffffff" fontSize="12" preferredHeight="16">How to make one - select and copy this link:</Text>
+      <InputField
+        minHeight="40"
+        preferredHeight="40">https://github.com/swlegion/tts/blob/main/contrib/cards/README.md</InputField>
+    </VerticalLayout>
+  </Panel>
+  <Panel 
+    color="#202020"
+    height="30"
+    offsetXY="0 -270"
+    padding="5"
+    rectAlignment="UpperCenter"
+    width="500"
+  >
+    <HorizontalLayout height="30">
+      <Button onClick="showWelcomeTab1">
+        <Text fontSize="10" fontStyle="bold">What's New</Text>
+      </Button>
+      <Button onClick="showWelcomeTab3">
+        <Text fontSize="10">Custom Cards Load (beta)</Text>
+      </Button>
+      <Button interactable="false">
+        <Text fontSize="10">-</Text>
+      </Button>
+    </HorizontalLayout>
+  </Panel>
+</Panel>
+
+<!-- #include !/ui/Welcome -->
+
+<!-- #include !/ui/Menu -->
+<!-- #include !/ui/Clock -->
+<VerticalLayout
+  color="black"
+  id="floatingChessClockUI"
+  active="false"
+  height="10"
+  width="0"
+  allowDragging="true"
+  returnToOriginalPositionWhenReleased="false"
+  rectAlignment="UpperCenter"
+  offsetXY="0 -75"
+  outlineSize="1 1"
+  outline="#303030"
+>
+  <HorizontalLayout color="transparent" preferredHeight="0" spacing="8">
+    <VerticalLayout ignoreLayout="true" width="250" height="40" outlineSize="1 1" outline="#303030" color="black">
+      <Button 
+        id="toggleClockButton"
+        onClick="toggleClockButton"
+        tooltip="Left click to switch player clock, right click to pause"
+        colors="#FFFFFF|#DFDFDF">
+        <Text id="toggleClockText" color="#FFFFFF">Chess Clocks Paused</Text>
+      </Button>
+    </VerticalLayout>
+  </HorizontalLayout>
+</VerticalLayout>
+
 <!-- #include !/ui/Clock -->
